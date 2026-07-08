@@ -1,6 +1,7 @@
 ﻿  ControlEngineAPI.cpp
   Machine.cpp
   MachineManager.cpp
+  RobotController.cpp
   Generating Code...
   ControlEngine.vcxproj -> D:\Source Codes\SemiControlSimulator\x64\Debug\ControlEngine.dll
   'pwsh.exe' is not recognized as an internal or external command,

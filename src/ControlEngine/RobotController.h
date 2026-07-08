@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
+#include "../ControlEngine/Device.h"
 
-enum class RobotStatus 
+enum class RobotStatus
 {
     Disconnected = 0,
     Ready = 1,
@@ -9,33 +10,28 @@ enum class RobotStatus
     Error = 3
 };
 
-class RobotController
+class RobotController : public Device
 {
 private:
-    std::string name;
-    std::string model;
-    std::string serialNumber;
-
     RobotStatus status;
     int currentPosition;
 
 public:
-    RobotController(const std::string& name, const std::string& model, const std::string& serialNumber);
+    RobotController(const std::string& name, 
+                    const std::string& model, 
+                    const std::string& serialNumber);
 
     bool connect();
     bool disconnect();
+
     bool home();
     bool moveToPosition(int position);
 
-    const std::string& GetName() const;
-    const std::string& GetModel() const;
-    const std::string& GetSerialNumber() const;
-
     bool isConnected() const;
     RobotStatus getStatus() const;
+    void setStatus(RobotStatus newStatus);
     std::string getStatusString() const;
 
-    void setStatus(RobotStatus newStatus);
     int getCurrentPosition() const;
     void setCurrentPosition(int position);
 

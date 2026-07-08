@@ -140,12 +140,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ControlEngineAPI.h" />
+    <ClInclude Include="Device.h" />
     <ClInclude Include="Machine.h" />
     <ClInclude Include="MachineManager.h" />
     <ClInclude Include="RobotController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ControlEngineAPI.cpp" />
+    <ClCompile Include="Device.cpp" />
     <ClCompile Include="Machine.cpp" />
     <ClCompile Include="MachineManager.cpp" />
     <ClCompile Include="RobotController.cpp" />

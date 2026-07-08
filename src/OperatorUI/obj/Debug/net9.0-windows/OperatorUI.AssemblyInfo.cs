@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OperatorUI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dca4fa12859e35360a15cde04adad5da3f524ef2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ea0464bedf43f7642f66b84d92ef66a32c1e5b83")]
 [assembly: System.Reflection.AssemblyProductAttribute("OperatorUI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OperatorUI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

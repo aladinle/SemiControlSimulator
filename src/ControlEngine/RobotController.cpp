@@ -1,7 +1,11 @@
 #include "RobotController.h"
 
-RobotController::RobotController(const std::string& name, const std::string& model,	const std::string& serialNumber)
-	: name(name), model(model), serialNumber(serialNumber), status(RobotStatus::Disconnected), currentPosition(0)
+RobotController::RobotController(const std::string& name,
+	const std::string& model,
+	const std::string& serialNumber)
+	: Device(name, model, serialNumber),
+	status(RobotStatus::Disconnected),
+	currentPosition(0)
 {
 }
 
@@ -43,21 +47,6 @@ bool RobotController::moveToPosition(int position)
 	currentPosition = position;
 	status = RobotStatus::Ready;
 	return true;
-}
-
-const std::string& RobotController::GetName() const 
-{
-	return name;
-}
-
-const std::string& RobotController::GetModel() const 
-{
-	return model;
-}
-
-const std::string& RobotController::GetSerialNumber() const 
-{
-	return serialNumber;
 }
 
 bool RobotController::isConnected() const 
