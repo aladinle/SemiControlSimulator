@@ -4,6 +4,7 @@ D:\Source Codes\SemiControlSimulator\src\ControlEngine\Device.cpp;D:\Source Code
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\FlowController.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\FlowController.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\FlowSensor.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\FlowSensor.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\Machine.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\Machine.obj
+D:\Source Codes\SemiControlSimulator\src\ControlEngine\MachineController.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\MachineController.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\MachineManager.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\MachineManager.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\MachineStateMachine.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\MachineStateMachine.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\MotionController.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\MotionController.obj

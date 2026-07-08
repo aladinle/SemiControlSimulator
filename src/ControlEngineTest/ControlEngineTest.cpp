@@ -4,6 +4,7 @@
 #include <iostream>
 #include "ControlEngineAPI.h"
 #include "MachineManager.h"
+#include "MachineController.h"
 
 int main()
 {
@@ -20,103 +21,53 @@ int main()
 
     std::cout << "Machine ID: " << machine->getId() << "\n";
     std::cout << "Machine Type: " << machine->getType() << "\n";
-    
-    std::cout << "Initial State: "
-        << machine->getStateMachine().GetStateString() << "\n";
-
 	
-	machine->getStateMachine().Initialize();    // Offline -> Ready
+    MachineController machineController(machine);
 
-    std::cout << "After Initialize: "
-        << machine->getStateMachine().GetStateString() << "\n";
+    std::cout << "Initial State: " << machineController.GetMachineStateString() << "\n";
 
-    machine->getStateMachine().Start();         // Ready -> Running
+    if (!machineController.InitializeMachine())     // Offline -> Ready
+    {
+        std::cerr << "FAIL: InitializeMachine failed\n";
+        return -1;
+    }
 
-    std::cout << "After Start: "
-        << machine->getStateMachine().GetStateString() << "\n";
+    std::cout << "After Initialize: " << machineController.GetMachineStateString() << "\n";
 
-    machine->getStateMachine().Pause();
+    if (!machineController.StartMachine())         // Ready -> Running
+    {
+        std::cerr << "FAIL: StartMachine failed\n";
+        return -1;
+    }
 
-    std::cout << "After Pause: "
-        << machine->getStateMachine().GetStateString() << "\n";
+    std::cout << "After Start: " << machineController.GetMachineStateString() << "\n";
 
-    machine->getStateMachine().Resume();
+	machineController.HomeRobot();
+	machineController.MoveRobotToPosition(100);
 
-    std::cout << "After Resume: "
-        << machine->getStateMachine().GetStateString() << "\n";
+	machineController.StartPump(3.2);
+	machineController.OpenFlow(15.0);
 
-    machine->getStateMachine().Complete();
+    std::cout << "Robot Position: " << machineController.GetRobotPosition() << "\n";
 
-    std::cout << "After Complete: "
-        << machine->getStateMachine().GetStateString() << "\n";
+    std::cout << "Pump Pressure: " << machineController.GetPumpPressure() << "\n";
 
-	machine->getRobot().Connect();
-	machine->getRobot().home();
-	machine->getRobot().moveToPosition(100);
+    std::cout << "Flow Rate: " << machineController.GetCurrentFlowRate() << "\n";
 
-    std::cout << "Robot: "
-        << machine->getRobot().GetName()
-        << " | Status: "
-		<< machine->getRobot().getStatusString()
-        << " | Position: "
-		<< machine->getRobot().getCurrentPosition()
-        << "\n";
+    std::cout << "Temperature: " << machineController.GetTemperature() << "\n";
+    std::cout << "Pressure: " << machineController.GetPressure() << "\n";
 
-    machine->getMotion().Connect();
-    machine->getMotion().Enable();
-    machine->getMotion().Home();
-    machine->getMotion().MoveAbsolute(100.5);
+    std::cout << "Vacuum: " << machineController.GetVacuum() << "\n";
 
-    std::cout << "Motion Position: "
-        << machine->getMotion().GetCurrentPosition()
-        << "\n";
+    if (!machineController.StopMachine())     // Running -> Ready
+    {
+        std::cerr << "FAIL: StopMachine failed\n";
+        return -1;
+    }
 
-    machine->getPump().Connect();
-    machine->getPump().SetTargetPressure(3.2);
-    machine->getPump().Start();
+    std::cout << "After Stop: " << machineController.GetMachineStateString() << "\n";
 
-    std::cout << "Pump Pressure: "
-        << machine->getPump().GetPressure()
-        << "\n";
-
-    machine->getFlowController().Connect();
-    machine->getFlowController().SetTargetFlowRate(15.0);
-    machine->getFlowController().Open();
-
-    std::cout << "Flow Rate: "
-        << machine->getFlowController().GetCurrentFlowRate()
-        << "\n";
-
-    machine->getTemperatureSensor().Connect();
-    machine->getPressureSensor().Connect();
-    machine->getFlowSensor().Connect();
-    machine->getVacuumSensor().Connect();
-
-    std::cout << "Temperature: "
-        << machine->getTemperatureSensor().ReadValue()
-        << " "
-        << machine->getTemperatureSensor().GetUnit()
-        << "\n";
-
-    std::cout << "Pressure Sensor: "
-        << machine->getPressureSensor().ReadValue()
-        << " "
-        << machine->getPressureSensor().GetUnit()
-        << "\n";
-
-    std::cout << "Flow Sensor: "
-        << machine->getFlowSensor().ReadValue()
-        << " "
-        << machine->getFlowSensor().GetUnit()
-        << "\n";
-
-    std::cout << "Vacuum: "
-        << machine->getVacuumSensor().ReadValue()
-        << " "
-        << machine->getVacuumSensor().GetUnit()
-        << "\n";
-
-    std::cout << "\nPHASE 2 STATE MACHINE TEST PASSED\n";
+    std::cout << "\nMACHINE CONTROLLER TEST PASSED\n";
 
 	return 0;
 }

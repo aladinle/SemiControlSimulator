@@ -24,8 +24,8 @@ public:
     bool connect();
     bool disconnect();
 
-    bool home();
-    bool moveToPosition(int position);
+    bool Home();
+    bool MoveToPosition(int position);
 
     bool isConnected() const;
     RobotStatus getStatus() const;

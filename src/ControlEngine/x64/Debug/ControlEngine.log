@@ -1,5 +1,2 @@
-﻿  ControlEngineAPI.cpp
-  Machine.cpp
-  MachineManager.cpp
-  Generating Code...
+﻿  MachineController.cpp
   ControlEngine.vcxproj -> D:\Source Codes\SemiControlSimulator\x64\Debug\ControlEngine.lib

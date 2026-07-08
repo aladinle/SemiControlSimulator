@@ -43,6 +43,9 @@
     <Filter Include="StateMachine">
       <UniqueIdentifier>{ae1fc0aa-8f00-4c8a-80eb-3cef473d4e7b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MachineController">
+      <UniqueIdentifier>{8dadfdde-8f79-4cb5-9eec-ffff8391c385}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MachineManager.h">
@@ -90,6 +93,9 @@
     <ClInclude Include="MachineStateMachine.h">
       <Filter>StateMachine</Filter>
     </ClInclude>
+    <ClInclude Include="MachineController.h">
+      <Filter>MachineController</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MachineManager.cpp">
@@ -136,6 +142,9 @@
     </ClCompile>
     <ClCompile Include="MachineStateMachine.cpp">
       <Filter>StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="MachineController.cpp">
+      <Filter>MachineController</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -27,7 +27,7 @@ bool RobotController::disconnect()
 	return true;
 }
 
-bool RobotController::home() 
+bool RobotController::Home() 
 {
 	if (status != RobotStatus::Ready) 
 	{
@@ -40,7 +40,7 @@ bool RobotController::home()
 	return true;
 }
 
-bool RobotController::moveToPosition(int position) 
+bool RobotController::MoveToPosition(int position) 
 {
 	if (status != RobotStatus::Ready) 
 	{
