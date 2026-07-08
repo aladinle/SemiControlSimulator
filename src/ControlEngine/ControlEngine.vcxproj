@@ -142,11 +142,13 @@
     <ClInclude Include="ControlEngineAPI.h" />
     <ClInclude Include="Machine.h" />
     <ClInclude Include="MachineManager.h" />
+    <ClInclude Include="RobotController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ControlEngineAPI.cpp" />
     <ClCompile Include="Machine.cpp" />
     <ClCompile Include="MachineManager.cpp" />
+    <ClCompile Include="RobotController.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

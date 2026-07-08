@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "RobotController.h"
 
 enum class MachineState
 {
@@ -16,6 +17,8 @@ private:
 	std::string type;
 	MachineState state;
 
+	RobotController robot;
+
 public:
 	Machine(const std::string& id, const std::string& type);
 	
@@ -27,4 +30,6 @@ public:
 	const std::string& getId() const;
 	const std::string& getType() const;
 	MachineState getState() const;
+
+	RobotController& getRobot();
 };

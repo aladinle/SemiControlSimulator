@@ -2,7 +2,6 @@
   Machine.cpp
   MachineManager.cpp
   Generating Code...
-     Creating library D:\Source Codes\SemiControlSimulator\x64\Debug\ControlEngine.lib and object D:\Source Codes\SemiControlSimulator\x64\Debug\ControlEngine.exp
   ControlEngine.vcxproj -> D:\Source Codes\SemiControlSimulator\x64\Debug\ControlEngine.dll
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Robot">
+      <UniqueIdentifier>{1d04bc57-976a-4f46-9646-bc88612d842a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Machine.h">
@@ -24,6 +27,9 @@
     <ClInclude Include="ControlEngineAPI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RobotController.h">
+      <Filter>Robot</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Machine.cpp">
@@ -34,6 +40,9 @@
     </ClCompile>
     <ClCompile Include="ControlEngineAPI.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RobotController.cpp">
+      <Filter>Robot</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
