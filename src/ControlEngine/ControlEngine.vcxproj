@@ -146,6 +146,7 @@
     <ClInclude Include="FlowSensor.h" />
     <ClInclude Include="Machine.h" />
     <ClInclude Include="MachineManager.h" />
+    <ClInclude Include="MachineStateMachine.h" />
     <ClInclude Include="MotionController.h" />
     <ClInclude Include="PressureSensor.h" />
     <ClInclude Include="PumpController.h" />
@@ -165,6 +166,7 @@
     <ClCompile Include="FlowSensor.cpp" />
     <ClCompile Include="Machine.cpp" />
     <ClCompile Include="MachineManager.cpp" />
+    <ClCompile Include="MachineStateMachine.cpp" />
     <ClCompile Include="MotionController.cpp" />
     <ClCompile Include="PressureSensor.cpp" />
     <ClCompile Include="PumpController.cpp" />

@@ -18,10 +18,37 @@ int main()
 		return -1;
 	}
 
-	std::cout << "Machine Control Engine initialized successfully." << std::endl;
+    std::cout << "Machine ID: " << machine->getId() << "\n";
+    std::cout << "Machine Type: " << machine->getType() << "\n";
+    
+    std::cout << "Initial State: "
+        << machine->getStateMachine().GetStateString() << "\n";
 
-	std::cout << "Machine ID: " << machine->getId() << "\n";
-	std::cout << "Machine Type: " << machine->getType() << "\n";
+	
+	machine->getStateMachine().Initialize();    // Offline -> Ready
+
+    std::cout << "After Initialize: "
+        << machine->getStateMachine().GetStateString() << "\n";
+
+    machine->getStateMachine().Start();         // Ready -> Running
+
+    std::cout << "After Start: "
+        << machine->getStateMachine().GetStateString() << "\n";
+
+    machine->getStateMachine().Pause();
+
+    std::cout << "After Pause: "
+        << machine->getStateMachine().GetStateString() << "\n";
+
+    machine->getStateMachine().Resume();
+
+    std::cout << "After Resume: "
+        << machine->getStateMachine().GetStateString() << "\n";
+
+    machine->getStateMachine().Complete();
+
+    std::cout << "After Complete: "
+        << machine->getStateMachine().GetStateString() << "\n";
 
 	machine->getRobot().Connect();
 	machine->getRobot().home();
@@ -89,7 +116,7 @@ int main()
         << machine->getVacuumSensor().GetUnit()
         << "\n";
 
-    std::cout << "\nPHASE 1 TEST PASSED\n";
+    std::cout << "\nPHASE 2 STATE MACHINE TEST PASSED\n";
 
 	return 0;
 }

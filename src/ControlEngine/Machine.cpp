@@ -1,47 +1,37 @@
 #include "Machine.h"
 
 Machine::Machine(const std::string& id, const std::string& type)
-    : id(id), 
-    type(type), 
-    state(MachineState::Idle), 
+    : id(id),
+    type(type),
     robot("Wafer Transfer Robot", "SIM-1000", "RB-001"),
-	motion("Linear Motion Controller", "LMC-2000", "MC-001"),
-	pump("Vacuum Pump", "VP-3000", "PMP-001"),
-	flow("Flow Controller", "FC-4000", "FC-001"),
-	temperatureSensor("Temperature Sensor", "TS-5000", "TS-001"),
-	pressureSensor("Pressure Sensor", "PS-6000", "PS-001"),
-	flowSensor("Flow Sensor", "FS-7000", "FS-001"),
-	vacuumSensor("Vacuum Sensor", "VS-8000", "VS-001")
+    motion("Linear Motion Controller", "LMC-2000", "MC-001"),
+    pump("Vacuum Pump", "VP-3000", "PMP-001"),
+    flow("Flow Controller", "FC-4000", "FC-001"),
+    temperatureSensor("Temperature Sensor", "TS-5000", "TS-001"),
+    pressureSensor("Pressure Sensor", "PS-6000", "PS-001"),
+    flowSensor("Flow Sensor", "FS-7000", "FS-001"),
+    vacuumSensor("Vacuum Sensor", "VS-8000", "VS-001")
 {
 }
 
-void Machine::start()
+bool Machine::start()
 {
-    if (state == MachineState::Idle)
-    {
-        state = MachineState::Running;
-    }
+	return stateMachine.Start();
 }
 
-void Machine::stop()
+bool Machine::stop()
 {
-    if (state == MachineState::Running)
-    {
-        state = MachineState::Idle;
-    }
+    return stateMachine.Stop();
+}   
+    
+bool Machine::setError()
+{
+	return stateMachine.SetError();
 }
 
-void Machine::setError()
+bool Machine::reset()
 {
-    state = MachineState::Error;
-}
-
-void Machine::reset()
-{
-    if (state == MachineState::Error)
-    {
-        state = MachineState::Idle;
-    }
+	return stateMachine.Reset();
 }
 
 const std::string& Machine::getId() const
@@ -56,7 +46,7 @@ const std::string& Machine::getType() const
 
 MachineState Machine::getState() const
 {
-    return state;
+    return stateMachine.GetCurrentState();
 }
 
 RobotController& Machine::getRobot()
@@ -97,4 +87,9 @@ FlowSensor& Machine::getFlowSensor()
 VacuumSensor& Machine::getVacuumSensor()
 {
     return vacuumSensor;
+}
+
+MachineStateMachine& Machine::getStateMachine()
+{
+    return stateMachine;
 }

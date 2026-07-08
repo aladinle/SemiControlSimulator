@@ -8,21 +8,13 @@
 #include "PressureSensor.h"
 #include "FlowSensor.h"
 #include "VacuumSensor.h"
-
-enum class MachineState
-{
-	Idle = 0,
-	Running = 1,
-	Error = 2,
-	Maintenance = 3
-};
+#include "MachineStateMachine.h"
 
 class Machine
 {
 private:
 	std::string id;
 	std::string type;
-	MachineState state;
 
 	RobotController robot;
 	MotionController motion;
@@ -33,13 +25,15 @@ private:
 	FlowSensor flowSensor;
 	VacuumSensor vacuumSensor;
 
+	MachineStateMachine stateMachine;
+
 public:
 	Machine(const std::string& id, const std::string& type);
 	
-	void start();
-	void stop();
-	void setError();
-	void reset();
+	bool start();
+	bool stop();
+	bool setError();
+	bool reset();
 	
 	const std::string& getId() const;
 	const std::string& getType() const;
@@ -53,4 +47,5 @@ public:
 	PressureSensor& getPressureSensor();
 	FlowSensor& getFlowSensor();
 	VacuumSensor& getVacuumSensor();
+	MachineStateMachine& getStateMachine();
 };

@@ -40,6 +40,9 @@
     <Filter Include="Controller">
       <UniqueIdentifier>{d836dab9-077c-45fe-adde-b1c6065e1595}</UniqueIdentifier>
     </Filter>
+    <Filter Include="StateMachine">
+      <UniqueIdentifier>{ae1fc0aa-8f00-4c8a-80eb-3cef473d4e7b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MachineManager.h">
@@ -84,6 +87,9 @@
     <ClInclude Include="PressureSensor.h">
       <Filter>Sensors</Filter>
     </ClInclude>
+    <ClInclude Include="MachineStateMachine.h">
+      <Filter>StateMachine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MachineManager.cpp">
@@ -127,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="PressureSensor.cpp">
       <Filter>Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="MachineStateMachine.cpp">
+      <Filter>StateMachine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
