@@ -143,6 +143,7 @@
     <ClInclude Include="Device.h" />
     <ClInclude Include="Machine.h" />
     <ClInclude Include="MachineManager.h" />
+    <ClInclude Include="MotionController.h" />
     <ClInclude Include="RobotController.h" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +151,7 @@
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="Machine.cpp" />
     <ClCompile Include="MachineManager.cpp" />
+    <ClCompile Include="MotionController.cpp" />
     <ClCompile Include="RobotController.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

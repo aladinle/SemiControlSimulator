@@ -1,7 +1,11 @@
 #include "Machine.h"
 
 Machine::Machine(const std::string& id, const std::string& type)
-    : id(id), type(type), state(MachineState::Idle), robot("Wafer Transfer Robot", "SIM-1000", "RB-001")
+    : id(id), 
+    type(type), 
+    state(MachineState::Idle), 
+    robot("Wafer Transfer Robot", "SIM-1000", "RB-001"),
+	motion("Linear Motion Controller", "LMC-2000", "MC-001")
 {
 }
 
@@ -52,4 +56,9 @@ MachineState Machine::getState() const
 RobotController& Machine::getRobot()
 {
     return robot;
+}
+
+MotionController& Machine::getMotion()
+{
+    return motion;
 }

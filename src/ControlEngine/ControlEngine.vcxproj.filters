@@ -19,6 +19,9 @@
     <Filter Include="Device">
       <UniqueIdentifier>{c41dbeda-39ba-472c-b1db-23f429b2a8c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Motion">
+      <UniqueIdentifier>{afddaf42-9f78-4b80-992f-a0182bd064c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Machine.h">
@@ -36,6 +39,9 @@
     <ClInclude Include="Device.h">
       <Filter>Device</Filter>
     </ClInclude>
+    <ClInclude Include="MotionController.h">
+      <Filter>Motion</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Machine.cpp">
@@ -52,6 +58,9 @@
     </ClCompile>
     <ClCompile Include="Device.cpp">
       <Filter>Device</Filter>
+    </ClCompile>
+    <ClCompile Include="MotionController.cpp">
+      <Filter>Motion</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
