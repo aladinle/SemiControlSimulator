@@ -27,26 +27,26 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -140,19 +140,38 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ControlEngineAPI.h" />
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="Device.h" />
+    <ClInclude Include="FlowController.h" />
+    <ClInclude Include="FlowSensor.h" />
     <ClInclude Include="Machine.h" />
     <ClInclude Include="MachineManager.h" />
     <ClInclude Include="MotionController.h" />
+    <ClInclude Include="PressureSensor.h" />
+    <ClInclude Include="PumpController.h" />
     <ClInclude Include="RobotController.h" />
+    <ClInclude Include="Sensor.h" />
+    <ClInclude Include="TemperatureSensor.h" />
+    <ClInclude Include="VacuumSensor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ControlEngineAPI.cpp" />
+    <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Device.cpp" />
+    <ClCompile Include="FlowController.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="FlowSensor.cpp" />
     <ClCompile Include="Machine.cpp" />
     <ClCompile Include="MachineManager.cpp" />
     <ClCompile Include="MotionController.cpp" />
+    <ClCompile Include="PressureSensor.cpp" />
+    <ClCompile Include="PumpController.cpp" />
     <ClCompile Include="RobotController.cpp" />
+    <ClCompile Include="Sensor.cpp" />
+    <ClCompile Include="TemperatureSensor.cpp" />
+    <ClCompile Include="VacuumSensor.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -2,6 +2,12 @@
 #include <string>
 #include "RobotController.h"
 #include "MotionController.h"
+#include "PumpController.h"
+#include "FlowController.h"
+#include "TemperatureSensor.h"
+#include "PressureSensor.h"
+#include "FlowSensor.h"
+#include "VacuumSensor.h"
 
 enum class MachineState
 {
@@ -20,6 +26,12 @@ private:
 
 	RobotController robot;
 	MotionController motion;
+	PumpController pump;
+	FlowController flow;
+	TemperatureSensor temperatureSensor;
+	PressureSensor pressureSensor;
+	FlowSensor flowSensor;
+	VacuumSensor vacuumSensor;
 
 public:
 	Machine(const std::string& id, const std::string& type);
@@ -35,4 +47,10 @@ public:
 
 	RobotController& getRobot();
 	MotionController& getMotion();
+	PumpController& getPump();
+	FlowController& getFlowController();
+	TemperatureSensor& getTemperatureSensor();
+	PressureSensor& getPressureSensor();
+	FlowSensor& getFlowSensor();
+	VacuumSensor& getVacuumSensor();
 };

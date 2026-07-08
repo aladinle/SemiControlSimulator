@@ -2,9 +2,6 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\Source Codes\SemiControlSimulator\x64\Debug\ControlEngine.dll</FullPath>
-    </ProjectOutput>
-    <ProjectOutput>
       <FullPath>D:\Source Codes\SemiControlSimulator\x64\Debug\ControlEngineTest.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>

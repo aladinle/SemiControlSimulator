@@ -3,11 +3,17 @@ D:\Source Codes\SemiControlSimulator\src\OperatorUI\bin\Debug\net9.0-windows\Ope
 D:\Source Codes\SemiControlSimulator\src\OperatorUI\bin\Debug\net9.0-windows\OperatorUI.runtimeconfig.json
 D:\Source Codes\SemiControlSimulator\src\OperatorUI\bin\Debug\net9.0-windows\OperatorUI.dll
 D:\Source Codes\SemiControlSimulator\src\OperatorUI\bin\Debug\net9.0-windows\OperatorUI.pdb
+D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\DashboardWindow.g.cs
 D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\MainWindow.g.cs
+D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\Views\MachineDetailsWindow.g.cs
+D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\Views\TestSetupWindow.g.cs
 D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\App.g.cs
 D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\OperatorUI_MarkupCompile.cache
 D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\OperatorUI_MarkupCompile.lref
+D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\DashboardWindow.baml
 D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\MainWindow.baml
+D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\Views\MachineDetailsWindow.baml
+D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\Views\TestSetupWindow.baml
 D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\OperatorUI.g.resources
 D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\OperatorUI.GeneratedMSBuildEditorConfig.editorconfig
 D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\OperatorUI.AssemblyInfoInputs.cache
@@ -19,9 +25,3 @@ D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\ref
 D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\OperatorUI.pdb
 D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\OperatorUI.genruntimeconfig.cache
 D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\ref\OperatorUI.dll
-D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\DashboardWindow.g.cs
-D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\DashboardWindow.baml
-D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\Views\MachineDetailsWindow.g.cs
-D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\Views\MachineDetailsWindow.baml
-D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\Views\TestSetupWindow.g.cs
-D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\Views\TestSetupWindow.baml

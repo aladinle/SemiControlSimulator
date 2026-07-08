@@ -3,20 +3,93 @@
 
 #include <iostream>
 #include "ControlEngineAPI.h"
+#include "MachineManager.h"
 
 int main()
 {
-	InitializeEngine();
+	MachineManager machineManager;
+	machineManager.Initialize();
+
+	Machine* machine = machineManager.getMachine(0);
+
+	if(machine == nullptr)
+	{
+		std::cerr << "Machine not found!\n";
+		return -1;
+	}
 
 	std::cout << "Machine Control Engine initialized successfully." << std::endl;
 
-	std::cout << "Machine Count: " << GetMachineCount() << std::endl;
+	std::cout << "Machine ID: " << machine->getId() << "\n";
+	std::cout << "Machine Type: " << machine->getType() << "\n";
 
-	StartMachine(0);
-	std::cout << "Machine 0 State: " << GetMachineState(0) << std::endl;
+	machine->getRobot().Connect();
+	machine->getRobot().home();
+	machine->getRobot().moveToPosition(100);
 
-	StopMachine(0);
-	std::cout << "Machine 0 State after stopping: " << GetMachineState(0) << std::endl;
+    std::cout << "Robot: "
+        << machine->getRobot().GetName()
+        << " | Status: "
+		<< machine->getRobot().getStatusString()
+        << " | Position: "
+		<< machine->getRobot().getCurrentPosition()
+        << "\n";
+
+    machine->getMotion().Connect();
+    machine->getMotion().Enable();
+    machine->getMotion().Home();
+    machine->getMotion().MoveAbsolute(100.5);
+
+    std::cout << "Motion Position: "
+        << machine->getMotion().GetCurrentPosition()
+        << "\n";
+
+    machine->getPump().Connect();
+    machine->getPump().SetTargetPressure(3.2);
+    machine->getPump().Start();
+
+    std::cout << "Pump Pressure: "
+        << machine->getPump().GetPressure()
+        << "\n";
+
+    machine->getFlowController().Connect();
+    machine->getFlowController().SetTargetFlowRate(15.0);
+    machine->getFlowController().Open();
+
+    std::cout << "Flow Rate: "
+        << machine->getFlowController().GetCurrentFlowRate()
+        << "\n";
+
+    machine->getTemperatureSensor().Connect();
+    machine->getPressureSensor().Connect();
+    machine->getFlowSensor().Connect();
+    machine->getVacuumSensor().Connect();
+
+    std::cout << "Temperature: "
+        << machine->getTemperatureSensor().ReadValue()
+        << " "
+        << machine->getTemperatureSensor().GetUnit()
+        << "\n";
+
+    std::cout << "Pressure Sensor: "
+        << machine->getPressureSensor().ReadValue()
+        << " "
+        << machine->getPressureSensor().GetUnit()
+        << "\n";
+
+    std::cout << "Flow Sensor: "
+        << machine->getFlowSensor().ReadValue()
+        << " "
+        << machine->getFlowSensor().GetUnit()
+        << "\n";
+
+    std::cout << "Vacuum: "
+        << machine->getVacuumSensor().ReadValue()
+        << " "
+        << machine->getVacuumSensor().GetUnit()
+        << "\n";
+
+    std::cout << "\nPHASE 1 TEST PASSED\n";
 
 	return 0;
 }

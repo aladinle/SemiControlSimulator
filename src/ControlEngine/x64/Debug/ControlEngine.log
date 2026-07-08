@@ -1,5 +1,16 @@
-﻿  MotionController.cpp
-     Creating library D:\Source Codes\SemiControlSimulator\x64\Debug\ControlEngine.lib and object D:\Source Codes\SemiControlSimulator\x64\Debug\ControlEngine.exp
-  ControlEngine.vcxproj -> D:\Source Codes\SemiControlSimulator\x64\Debug\ControlEngine.dll
-  'pwsh.exe' is not recognized as an internal or external command,
-  operable program or batch file.
+﻿  ControlEngineAPI.cpp
+  Controller.cpp
+  Device.cpp
+  FlowController.cpp
+  FlowSensor.cpp
+  Machine.cpp
+  MachineManager.cpp
+  MotionController.cpp
+  PressureSensor.cpp
+  PumpController.cpp
+  RobotController.cpp
+  Sensor.cpp
+  TemperatureSensor.cpp
+  VacuumSensor.cpp
+  Generating Code...
+  ControlEngine.vcxproj -> D:\Source Codes\SemiControlSimulator\x64\Debug\ControlEngine.lib

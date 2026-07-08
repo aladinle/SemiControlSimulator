@@ -1,10 +1,8 @@
 #pragma once
 
-#ifdef CONTROLENGINE_EXPORTS
-#define CONTROLENGINE_API __declspec(dllexport)
-#else
-#define CONTROLENGINE_API __declspec(dllimport)
-#endif // CONTROLENGINE_EXPORTS
+// ControlEngine is built as a static library, so its public functions do not
+// use DLL import/export decorations.
+#define CONTROLENGINE_API
 
 extern "C" {
     CONTROLENGINE_API void InitializeEngine();

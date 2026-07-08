@@ -3,7 +3,7 @@
 RobotController::RobotController(const std::string& name,
 	const std::string& model,
 	const std::string& serialNumber)
-	: Device(name, model, serialNumber),
+	: Controller(name, model, serialNumber),
 	status(RobotStatus::Disconnected),
 	currentPosition(0)
 {
@@ -12,6 +12,8 @@ RobotController::RobotController(const std::string& name,
 bool RobotController::connect() 
 {
 	// Simulate connection logic
+	Device::Connect();
+	Enable();
 	status = RobotStatus::Ready;
 	return true;
 }
@@ -19,6 +21,8 @@ bool RobotController::connect()
 bool RobotController::disconnect() 
 {
 	// Simulate disconnection logic
+	Disable();
+	Device::Disconnect();
 	status = RobotStatus::Disconnected;
 	return true;
 }

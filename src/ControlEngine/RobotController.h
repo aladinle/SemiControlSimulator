@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "../ControlEngine/Device.h"
+#include "../ControlEngine/Controller.h"
 
 enum class RobotStatus
 {
@@ -10,7 +10,7 @@ enum class RobotStatus
     Error = 3
 };
 
-class RobotController : public Device
+class RobotController : public Controller
 {
 private:
     RobotStatus status;

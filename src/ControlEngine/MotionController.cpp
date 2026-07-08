@@ -3,7 +3,7 @@
 MotionController::MotionController(const std::string& name,
     const std::string& model,
     const std::string& serialNumber)
-    : Device(name, model, serialNumber),
+    : Controller(name, model, serialNumber),
     status(MotionStatus::Disabled),
     currentPosition(0.0),
     currentVelocity(0.0),
