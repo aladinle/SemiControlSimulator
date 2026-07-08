@@ -10,6 +10,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OperatorUI.Models;
 using OperatorUI.Services;
+using OperatorUI.Helpers;
 
 namespace OperatorUI
 {
@@ -36,6 +37,9 @@ namespace OperatorUI
                 ErrorTextBlock.Text = "Invalid username or password.";
                 return;
             }
+
+            // Store the authenticated user in the application context for later use
+            ApplicationContext.CurrentUser = user;
 
             // Navigate to the appropriate view based on the user's role
             DashboardWindow dashboardWindow = new DashboardWindow(user);

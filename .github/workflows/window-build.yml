@@ -1,0 +1,32 @@
+name: Windows Build
+
+on:
+  push:
+    branches:
+      - main
+      - phase1-engine
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore NuGet packages
+        run: dotnet restore SemiControlSimulator.sln
+
+      - name: Build solution
+        run: msbuild SemiControlSimulator.sln /p:Configuration=Debug /p:Platform=x64

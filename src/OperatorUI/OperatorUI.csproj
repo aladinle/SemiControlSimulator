@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Helpers\" />
     <Folder Include="Assets\" />
     <Folder Include="Resources\" />
     <Folder Include="ViewModels\" />

@@ -37,5 +37,11 @@ namespace OperatorUI.Views
         {
             this.Close();
         }
+
+        private void OpenTestSetup_Click(object sender, RoutedEventArgs e)
+        {
+            TestSetupWindow testSetupWindow = new TestSetupWindow();
+            testSetupWindow.ShowDialog();
+        }
     }
 }

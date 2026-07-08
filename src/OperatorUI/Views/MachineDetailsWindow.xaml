@@ -35,7 +35,7 @@
                 <Button Content="Open Test Setup"
                         Width="150"
                         Height="35"
-                        Margin="0,0,10,0"/>
+                        Margin="0,0,10,0" Click="OpenTestSetup_Click"/>
 
                 <Button Content="Manual Control"
                         Width="150"

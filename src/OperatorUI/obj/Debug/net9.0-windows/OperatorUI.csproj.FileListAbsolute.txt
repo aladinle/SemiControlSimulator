@@ -23,3 +23,5 @@ D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\Das
 D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\DashboardWindow.baml
 D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\Views\MachineDetailsWindow.g.cs
 D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\Views\MachineDetailsWindow.baml
+D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\Views\TestSetupWindow.g.cs
+D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\Views\TestSetupWindow.baml

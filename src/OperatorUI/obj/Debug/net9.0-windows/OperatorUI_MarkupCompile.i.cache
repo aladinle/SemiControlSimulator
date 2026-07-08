@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET9_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NET9_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 D:\Source Codes\SemiControlSimulator\src\OperatorUI\App.xaml
-3928215033
+4-1563167843
 
-1246277043
+14-793916558
 200-1779018206
-DashboardWindow.xaml;MainWindow.xaml;Views\MachineDetailsWindow.xaml;
+DashboardWindow.xaml;MainWindow.xaml;Views\MachineDetailsWindow.xaml;Views\TestSetupWindow.xaml;
 
-True
+False
 

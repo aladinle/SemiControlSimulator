@@ -1,7 +1,4 @@
-﻿using OperatorUI.Models;
-using OperatorUI.Services;
-using OperatorUI.Views;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using OperatorUI.Models;
+using OperatorUI.Services;
+using OperatorUI.Views;
+using OperatorUI.Helpers;
 
 namespace OperatorUI
 {
@@ -77,6 +78,8 @@ namespace OperatorUI
                 MessageBox.Show("Please select a machine first.");
                 return;
             }
+
+            ApplicationContext.SelectedMachine = selectedMachine;
 
             MachineDetailsWindow detailsWindow = new MachineDetailsWindow(selectedMachine);
             detailsWindow.ShowDialog();
