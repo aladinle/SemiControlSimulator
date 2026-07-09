@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Device">
+      <UniqueIdentifier>{c41dbeda-39ba-472c-b1db-23f429b2a8c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sensors">
+      <UniqueIdentifier>{263cee28-475b-4832-b112-4cd1877125ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models">
+      <UniqueIdentifier>{5296c312-3f0c-41e0-9e72-1a0db4c0552a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API">
+      <UniqueIdentifier>{fcd0a2ba-d5ee-4b48-874f-be691a254e62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Robot">
+      <UniqueIdentifier>{1d04bc57-976a-4f46-9646-bc88612d842a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pump">
+      <UniqueIdentifier>{76ca088f-d6f8-4322-af34-28b871aaf8cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Flow">
+      <UniqueIdentifier>{62effa18-563f-44bd-bfdf-0877a06b0c7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Motion">
+      <UniqueIdentifier>{afddaf42-9f78-4b80-992f-a0182bd064c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controller">
+      <UniqueIdentifier>{d836dab9-077c-45fe-adde-b1c6065e1595}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StateMachine">
+      <UniqueIdentifier>{ae1fc0aa-8f00-4c8a-80eb-3cef473d4e7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MachineController">
+      <UniqueIdentifier>{8dadfdde-8f79-4cb5-9eec-ffff8391c385}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interfaces">
+      <UniqueIdentifier>{3a39bfaa-e730-49dc-858e-1a0a4e0d6a31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logging">
+      <UniqueIdentifier>{85e92d64-e129-414d-9024-fca004e34fba}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MachineManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RobotController.h">
+      <Filter>Robot</Filter>
+    </ClInclude>
+    <ClInclude Include="Device.h">
+      <Filter>Device</Filter>
+    </ClInclude>
+    <ClInclude Include="MotionController.h">
+      <Filter>Motion</Filter>
+    </ClInclude>
+    <ClInclude Include="PumpController.h">
+      <Filter>Pump</Filter>
+    </ClInclude>
+    <ClInclude Include="FlowController.h">
+      <Filter>Flow</Filter>
+    </ClInclude>
+    <ClInclude Include="Machine.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlEngineAPI.h">
+      <Filter>API</Filter>
+    </ClInclude>
+    <ClInclude Include="Sensor.h">
+      <Filter>Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="FlowSensor.h">
+      <Filter>Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="VacuumSensor.h">
+      <Filter>Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="TemperatureSensor.h">
+      <Filter>Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="PressureSensor.h">
+      <Filter>Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="MachineStateMachine.h">
+      <Filter>StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="MachineController.h">
+      <Filter>MachineController</Filter>
+    </ClInclude>
+    <ClInclude Include="IDevice.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IController.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="ISensor.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IMachineManager.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IMachineController.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="EventLogger.h">
+      <Filter>Logging</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MachineManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RobotController.cpp">
+      <Filter>Robot</Filter>
+    </ClCompile>
+    <ClCompile Include="Device.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
+    <ClCompile Include="MotionController.cpp">
+      <Filter>Motion</Filter>
+    </ClCompile>
+    <ClCompile Include="PumpController.cpp">
+      <Filter>Pump</Filter>
+    </ClCompile>
+    <ClCompile Include="FlowController.cpp">
+      <Filter>Flow</Filter>
+    </ClCompile>
+    <ClCompile Include="Machine.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlEngineAPI.cpp">
+      <Filter>API</Filter>
+    </ClCompile>
+    <ClCompile Include="Sensor.cpp">
+      <Filter>Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="FlowSensor.cpp">
+      <Filter>Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="VacuumSensor.cpp">
+      <Filter>Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="TemperatureSensor.cpp">
+      <Filter>Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="PressureSensor.cpp">
+      <Filter>Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="MachineStateMachine.cpp">
+      <Filter>StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="MachineController.cpp">
+      <Filter>MachineController</Filter>
+    </ClCompile>
+    <ClCompile Include="EventLogger.cpp">
+      <Filter>Logging</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
