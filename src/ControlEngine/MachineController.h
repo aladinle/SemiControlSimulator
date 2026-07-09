@@ -1,14 +1,18 @@
 #pragma once
 
 #include "../ControlEngine/Machine.h"
+#include "../ControlEngine/MachineManager.h"
 
 class MachineController
 {
 private:
-    Machine* machine;
+    IMachineManager* machineManager;
+    Machine* currentMachine;
 
 public:
-    MachineController(Machine* machine);
+    MachineController(IMachineManager* machineManager);
+
+	bool SelectMachine(int index);
 
     bool InitializeMachine();
     bool StartMachine();

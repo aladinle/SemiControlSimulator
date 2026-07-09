@@ -2,8 +2,10 @@
 #include "Machine.h"
 #include <vector>
 #include <memory>
+#include "IMachineManager.h"
 
-class MachineManager {
+class MachineManager : public IMachineManager
+{
 private:
 	std::vector<std::unique_ptr<Machine>> machines;
 

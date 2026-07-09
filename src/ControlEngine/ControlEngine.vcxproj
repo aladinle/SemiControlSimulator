@@ -144,6 +144,11 @@
     <ClInclude Include="Device.h" />
     <ClInclude Include="FlowController.h" />
     <ClInclude Include="FlowSensor.h" />
+    <ClInclude Include="IController.h" />
+    <ClInclude Include="IDevice.h" />
+    <ClInclude Include="IMachineController.h" />
+    <ClInclude Include="IMachineManager.h" />
+    <ClInclude Include="ISensor.h" />
     <ClInclude Include="Machine.h" />
     <ClInclude Include="MachineController.h" />
     <ClInclude Include="MachineManager.h" />

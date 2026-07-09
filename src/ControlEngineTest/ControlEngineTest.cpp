@@ -11,19 +11,19 @@ int main()
 	MachineManager machineManager;
 	machineManager.Initialize();
 
-	Machine* machine = machineManager.getMachine(0);
+	MachineController machineController(&machineManager);
+    int machineIndex = 0; // Select the first machine for testing
+	Machine* machine = machineManager.getMachine(machineIndex);
 
-	if(machine == nullptr)
-	{
-		std::cerr << "Machine not found!\n";
-		return -1;
-	}
+    if (!machineController.SelectMachine(machineIndex))
+    {
+        std::cerr << "FAIL: Machine not found!\n";
+        return -1;
+    }
 
     std::cout << "Machine ID: " << machine->getId() << "\n";
     std::cout << "Machine Type: " << machine->getType() << "\n";
 	
-    MachineController machineController(machine);
-
     std::cout << "Initial State: " << machineController.GetMachineStateString() << "\n";
 
     if (!machineController.InitializeMachine())     // Offline -> Ready
@@ -55,6 +55,7 @@ int main()
     std::cout << "Flow Rate: " << machineController.GetCurrentFlowRate() << "\n";
 
     std::cout << "Temperature: " << machineController.GetTemperature() << "\n";
+
     std::cout << "Pressure: " << machineController.GetPressure() << "\n";
 
     std::cout << "Vacuum: " << machineController.GetVacuum() << "\n";

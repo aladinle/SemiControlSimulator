@@ -1,215 +1,222 @@
 #include "MachineController.h"
 
-MachineController::MachineController(Machine* machine)
-    : machine(machine)
+MachineController::MachineController(IMachineManager* machineManager)
+    : machineManager(machineManager), currentMachine(nullptr)
 {
+}
+
+bool MachineController::SelectMachine(int index)
+{
+    if (machineManager == nullptr)
+        return false;
+    currentMachine = machineManager->getMachine(index);
+    return currentMachine != nullptr;
 }
 
 bool MachineController::InitializeMachine()
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return false;
 
     bool ok = true;
 
-    ok &= machine->getRobot().Connect();
-    ok &= machine->getMotion().Connect();
-    ok &= machine->getPump().Connect();
-    ok &= machine->getFlowController().Connect();
+    ok &= currentMachine->getRobot().Connect();
+    ok &= currentMachine->getMotion().Connect();
+    ok &= currentMachine->getPump().Connect();
+    ok &= currentMachine->getFlowController().Connect();
 
-    ok &= machine->getTemperatureSensor().Connect();
-    ok &= machine->getPressureSensor().Connect();
-    ok &= machine->getFlowSensor().Connect();
-    ok &= machine->getVacuumSensor().Connect();
+    ok &= currentMachine->getTemperatureSensor().Connect();
+    ok &= currentMachine->getPressureSensor().Connect();
+    ok &= currentMachine->getFlowSensor().Connect();
+    ok &= currentMachine->getVacuumSensor().Connect();
 
     if (!ok)
     {
-        machine->getStateMachine().SetError();
+        currentMachine->getStateMachine().SetError();
         return false;
     }
 
-    return machine->getStateMachine().Initialize();
+    return currentMachine->getStateMachine().Initialize();
 }
 
 bool MachineController::StartMachine()
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return false;
 
-    return machine->getStateMachine().Start();
+    return currentMachine->getStateMachine().Start();
 }
 
 bool MachineController::StopMachine()
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return false;
 
-    machine->getPump().Stop();
-    machine->getFlowController().Close();
-
-    return machine->getStateMachine().Stop();
+    currentMachine->getPump().Stop();
+    currentMachine->getFlowController().Close();
+    return currentMachine->getStateMachine().Stop();
 }
 
 bool MachineController::EmergencyStop()
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return false;
 
-    machine->getMotion().Stop();
-    machine->getPump().Stop();
-    machine->getFlowController().Close();
+    currentMachine->getMotion().Stop();
+    currentMachine->getPump().Stop();
+    currentMachine->getFlowController().Close();
 
-    return machine->getStateMachine().EmergencyStop();
+    return currentMachine->getStateMachine().EmergencyStop();
 }
 
 bool MachineController::ResetMachine()
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return false;
 
-    return machine->getStateMachine().Reset();
+    return currentMachine->getStateMachine().Reset();
 }
 
 bool MachineController::PauseMachine()
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return false;
 
-    return machine->getStateMachine().Pause();
+    return currentMachine->getStateMachine().Pause();
 }
 
 bool MachineController::ResumeMachine()
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return false;
 
-    return machine->getStateMachine().Resume();
+    return currentMachine->getStateMachine().Resume();
 }
 
 bool MachineController::CompleteMachine()
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return false;
 
-	return machine->getStateMachine().Complete();
+	return currentMachine->getStateMachine().Complete();
 }
 
 std::string MachineController::GetMachineStateString()
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return "Invalid Machine";
 
-    return machine->getStateMachine().GetStateString();
+    return currentMachine->getStateMachine().GetStateString();
 }
 
 bool MachineController::HomeRobot()
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return false;
 
-    return machine->getRobot().Home();
+    return currentMachine->getRobot().Home();
 }
 
 bool MachineController::MoveRobotToPosition(int position)
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return false;
 
-    return machine->getRobot().MoveToPosition(position);
+    return currentMachine->getRobot().MoveToPosition(position);
 }
 
 int MachineController::GetRobotPosition()
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return false;
 
-	return machine->getRobot().getCurrentPosition();
+	return currentMachine->getRobot().getCurrentPosition();
 }
 
 double MachineController::GetPumpPressure()
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return false;
 
-	return machine->getPump().GetPressure();
+	return currentMachine->getPump().GetPressure();
 }
 
 double MachineController::GetCurrentFlowRate()
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return false;
 
-	return machine->getFlowController().GetCurrentFlowRate();
+	return currentMachine->getFlowController().GetCurrentFlowRate();
 }
 
 bool MachineController::StartPump(double targetPressure)
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return false;
 
-    if (!machine->getPump().SetTargetPressure(targetPressure))
+    if (!currentMachine->getPump().SetTargetPressure(targetPressure))
         return false;
 
-    return machine->getPump().Start();
+    return currentMachine->getPump().Start();
 }
 
 bool MachineController::StopPump()
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return false;
 
-    return machine->getPump().Stop();
+    return currentMachine->getPump().Stop();
 }
 
 bool MachineController::OpenFlow(double targetFlowRate)
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return false;
 
-    if (!machine->getFlowController().SetTargetFlowRate(targetFlowRate))
+    if (!currentMachine->getFlowController().SetTargetFlowRate(targetFlowRate))
         return false;
 
-    return machine->getFlowController().Open();
+    return currentMachine->getFlowController().Open();
 }
 
 bool MachineController::CloseFlow()
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return false;
 
-    return machine->getFlowController().Close();
+    return currentMachine->getFlowController().Close();
 }
 
 double MachineController::ReadTemperature()
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return 0.0;
 
-    return machine->getTemperatureSensor().ReadValue();
+    return currentMachine->getTemperatureSensor().ReadValue();
 }
 
 double MachineController::ReadPressure()
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return 0.0;
 
-    return machine->getPressureSensor().ReadValue();
+    return currentMachine->getPressureSensor().ReadValue();
 }
 
 double MachineController::ReadFlow()
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return 0.0;
 
-    return machine->getFlowSensor().ReadValue();
+    return currentMachine->getFlowSensor().ReadValue();
 }
 
 double MachineController::ReadVacuum()
 {
-    if (machine == nullptr)
+    if (currentMachine == nullptr)
         return 0.0;
 
-    return machine->getVacuumSensor().ReadValue();
+    return currentMachine->getVacuumSensor().ReadValue();
 }
 
 double MachineController::GetTemperature()

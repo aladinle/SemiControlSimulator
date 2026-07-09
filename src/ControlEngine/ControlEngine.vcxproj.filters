@@ -46,6 +46,9 @@
     <Filter Include="MachineController">
       <UniqueIdentifier>{8dadfdde-8f79-4cb5-9eec-ffff8391c385}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Interfaces">
+      <UniqueIdentifier>{3a39bfaa-e730-49dc-858e-1a0a4e0d6a31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MachineManager.h">
@@ -95,6 +98,21 @@
     </ClInclude>
     <ClInclude Include="MachineController.h">
       <Filter>MachineController</Filter>
+    </ClInclude>
+    <ClInclude Include="IDevice.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IController.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="ISensor.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IMachineManager.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IMachineController.h">
+      <Filter>Interfaces</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
