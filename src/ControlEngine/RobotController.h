@@ -21,18 +21,18 @@ public:
                     const std::string& model, 
                     const std::string& serialNumber);
 
-    bool connect();
-    bool disconnect();
+    bool Connect();
+    bool Disconnect();
 
     bool Home();
     bool MoveToPosition(int position);
 
-    bool isConnected() const;
-    RobotStatus getStatus() const;
-    void setStatus(RobotStatus newStatus);
-    std::string getStatusString() const;
+    bool IsConnected() const;
+    RobotStatus GetStatus() const;
+    void SetStatus(RobotStatus newStatus);
+    std::string GetStatusString() const;
 
-    int getCurrentPosition() const;
-    void setCurrentPosition(int position);
+    int GetCurrentPosition() const;
+    void SetCurrentPosition(int position);
 
 };

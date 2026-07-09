@@ -49,6 +49,9 @@
     <Filter Include="Interfaces">
       <UniqueIdentifier>{3a39bfaa-e730-49dc-858e-1a0a4e0d6a31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Logging">
+      <UniqueIdentifier>{85e92d64-e129-414d-9024-fca004e34fba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MachineManager.h">
@@ -114,6 +117,9 @@
     <ClInclude Include="IMachineController.h">
       <Filter>Interfaces</Filter>
     </ClInclude>
+    <ClInclude Include="EventLogger.h">
+      <Filter>Logging</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MachineManager.cpp">
@@ -163,6 +169,9 @@
     </ClCompile>
     <ClCompile Include="MachineController.cpp">
       <Filter>MachineController</Filter>
+    </ClCompile>
+    <ClCompile Include="EventLogger.cpp">
+      <Filter>Logging</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

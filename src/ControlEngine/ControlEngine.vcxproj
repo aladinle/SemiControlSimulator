@@ -142,6 +142,7 @@
     <ClInclude Include="ControlEngineAPI.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Device.h" />
+    <ClInclude Include="EventLogger.h" />
     <ClInclude Include="FlowController.h" />
     <ClInclude Include="FlowSensor.h" />
     <ClInclude Include="IController.h" />
@@ -165,6 +166,7 @@
     <ClCompile Include="ControlEngineAPI.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Device.cpp" />
+    <ClCompile Include="EventLogger.cpp" />
     <ClCompile Include="FlowController.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>

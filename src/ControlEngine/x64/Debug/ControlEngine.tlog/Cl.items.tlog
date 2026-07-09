@@ -1,6 +1,7 @@
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\ControlEngineAPI.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\ControlEngineAPI.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\Controller.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\Controller.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\Device.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\Device.obj
+D:\Source Codes\SemiControlSimulator\src\ControlEngine\EventLogger.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\EventLogger.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\FlowController.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\FlowController.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\FlowSensor.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\FlowSensor.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\Machine.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\Machine.obj

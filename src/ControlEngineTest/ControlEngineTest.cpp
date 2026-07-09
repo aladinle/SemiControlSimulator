@@ -70,5 +70,11 @@ int main()
 
     std::cout << "\nMACHINE CONTROLLER TEST PASSED\n";
 
+    std::cout << "\n=========================== EVENT LOG ==============================\n";
+
+    machineController.GetEventLogger().PrintLogs();
+
+    std::cout << "======================================================================\n";
+
 	return 0;
 }

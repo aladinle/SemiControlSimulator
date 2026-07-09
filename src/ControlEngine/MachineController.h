@@ -2,12 +2,16 @@
 
 #include "../ControlEngine/Machine.h"
 #include "../ControlEngine/MachineManager.h"
+#include "../ControlEngine/IMachineController.h"
+#include "../ControlEngine/EventLogger.h"
 
-class MachineController
+class MachineController : public IMachineController
 {
 private:
     IMachineManager* machineManager;
     Machine* currentMachine;
+
+	EventLogger eventLogger;
 
 public:
     MachineController(IMachineManager* machineManager);
@@ -46,5 +50,7 @@ public:
     double GetPressure();
     double GetFlow();
     double GetVacuum();
+
+	const EventLogger& GetEventLogger() const;
 };
 

@@ -9,7 +9,7 @@ RobotController::RobotController(const std::string& name,
 {
 }
 
-bool RobotController::connect() 
+bool RobotController::Connect() 
 {
 	// Simulate connection logic
 	Device::Connect();
@@ -18,7 +18,7 @@ bool RobotController::connect()
 	return true;
 }
 
-bool RobotController::disconnect() 
+bool RobotController::Disconnect() 
 {
 	// Simulate disconnection logic
 	Disable();
@@ -53,17 +53,17 @@ bool RobotController::MoveToPosition(int position)
 	return true;
 }
 
-bool RobotController::isConnected() const 
+bool RobotController::IsConnected() const 
 {
 	return status != RobotStatus::Disconnected;
 }
 
-RobotStatus RobotController::getStatus() const 
+RobotStatus RobotController::GetStatus() const 
 {
 	return status;
 }
 
-std::string RobotController::getStatusString() const 
+std::string RobotController::GetStatusString() const 
 {
 	switch (status) 
 	{
@@ -80,17 +80,17 @@ std::string RobotController::getStatusString() const
 	}
 }
 
-void RobotController::setStatus(RobotStatus newStatus) 
+void RobotController::SetStatus(RobotStatus newStatus) 
 {
 	status = newStatus;
 }
 
-int RobotController::getCurrentPosition() const 
+int RobotController::GetCurrentPosition() const 
 {
 	return currentPosition;
 }
 
-void RobotController::setCurrentPosition(int position) 
+void RobotController::SetCurrentPosition(int position) 
 {
 	currentPosition = position;
 }
