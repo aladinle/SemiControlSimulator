@@ -10,7 +10,7 @@ bool MachineController::SelectMachine(int index)
     if (machineManager == nullptr)
     {
         alarmManager.RaiseAlarm(
-            "ALM-0001",
+            AlarmCode::MachineNotSelected,
             "Machine",
             "MachineManager is null.",
             AlarmSeverity::Critical);
@@ -23,7 +23,7 @@ bool MachineController::SelectMachine(int index)
     if (currentMachine == nullptr)
     {
         alarmManager.RaiseAlarm(
-            "ALM-0002",
+            AlarmCode::InvalidMachineIndex,
             "Machine",
             "Invalid machine index selected.",
             AlarmSeverity::Critical);
@@ -44,7 +44,7 @@ bool MachineController::InitializeMachine()
     {
         //logger.Error("Machine", "No machine selected.");
         alarmManager.RaiseAlarm(
-            "ALM-0003",
+            AlarmCode::MachineNotSelected,
             "Machine",
             "InitializeMachine failed: no machine selected.",
             AlarmSeverity::Critical);
@@ -68,7 +68,6 @@ bool MachineController::InitializeMachine()
     if (!isInitialized)
     {
         logger.Error("Machine", "Initialization failed.");
-        currentMachine->getStateMachine().SetError();
         return false;
     }
 
@@ -90,9 +89,13 @@ bool MachineController::StartMachine()
     bool result = currentMachine->getStateMachine().Start();
 
     if (result)
+    {
         logger.Info("Machine", "Machine is now RUNNING.");
+    }
     else
+    {
         logger.Warning("Machine", "Start rejected by state machine.");
+    }
 
     return result;
 }
@@ -113,9 +116,13 @@ bool MachineController::StopMachine()
     bool result = currentMachine->getStateMachine().Stop();
 
     if (result)
+    {
         logger.Info("Machine", "Machine is now STOPPED.");
+    }
     else
+    {
         logger.Warning("Machine", "STOP is rejected by state machine.");
+    }
 
     return result;
 }
@@ -137,9 +144,13 @@ bool MachineController::EmergencyStop()
     bool result = currentMachine->getStateMachine().EmergencyStop();
 
     if (result)
+    {
         logger.Info("Machine", "Machine is now EMERGENCY STOPPED.");
+    }
     else
+    {
         logger.Warning("Machine", "EMERGENCY STOPPED is rejected by state machine.");
+    }
 
     return result;
 }
@@ -155,9 +166,13 @@ bool MachineController::ResetMachine()
     bool result = currentMachine->getStateMachine().Reset();
 
     if (result)
+    {
         logger.Info("Machine", "Machine is now RESETTED.");
+    }
     else
+    {
         logger.Warning("Machine", "RESET is rejected by state machine.");
+    }
 
     return result;    
 }
@@ -173,9 +188,13 @@ bool MachineController::PauseMachine()
     bool result = currentMachine->getStateMachine().Pause();
 
     if (result)
+    { 
         logger.Info("Machine", "Machine is now PAUSED.");
+    }
     else
+    {
         logger.Warning("Machine", "PAUSE is rejected by state machine.");
+    }
 
     return result;
 }
@@ -191,9 +210,13 @@ bool MachineController::ResumeMachine()
     bool result = currentMachine->getStateMachine().Resume();
 
     if (result)
+    {
         logger.Info("Machine", "Machine is now RESUMED.");
-    else
+    }
+    else 
+    {
         logger.Warning("Machine", "RESUME is rejected by state machine.");
+    }
 
     return result;
 }
@@ -209,9 +232,13 @@ bool MachineController::CompleteMachine()
     bool result = currentMachine->getStateMachine().Complete();
 
     if (result)
+    {
         logger.Info("Machine", "Machine is now COMPLETED.");
+    }
     else
+    {
         logger.Warning("Machine", "COMPLETE is rejected by state machine.");
+    }
 
     return result;
 }
@@ -240,17 +267,17 @@ bool MachineController::HomeRobot()
     bool result = currentMachine->getRobot().Home();
 
     if (result)
+    {
         logger.Info("Robot", "Robot homed successfully.");
+    }
     else
     {
         //logger.Warning("Robot", "Robot failed at going HOME. Please check!");
         alarmManager.RaiseAlarm(
-            "ROB-0001",
+            AlarmCode::RobotHomeFailed,
             "Robot",
             "Robot HOME failed.",
             AlarmSeverity::Error);
-
-        currentMachine->getStateMachine().SetError();
     }
         
     return result;
@@ -267,17 +294,17 @@ bool MachineController::MoveRobotToPosition(int position)
     bool result = currentMachine->getRobot().MoveToPosition(position);
 
     if (result)
+    {
         logger.Info("Robot", "Robot moved to assigned position.");
+    }
     else
     {
         //logger.Warning("Robot", "Moving Robot to assigned position is failed.");
         alarmManager.RaiseAlarm(
-            "ROB-0002",
+            AlarmCode::RobotMoveFailed,
             "Robot",
             "Robot move command failed.",
             AlarmSeverity::Error);
-
-        currentMachine->getStateMachine().SetError();
     }
 
     return result;
@@ -325,9 +352,28 @@ bool MachineController::StartPump(double targetPressure)
     }
 
     if (!currentMachine->getPump().SetTargetPressure(targetPressure))
-        return false;
+    {
+        alarmManager.RaiseAlarm(
+            AlarmCode::PumpStartFailed,
+            "Pump",
+            "Failed to set target pressure.",
+            AlarmSeverity::Error);
 
-    return currentMachine->getPump().Start();
+        return false;
+    }
+
+    bool result = currentMachine->getPump().Start();
+
+    if (!result)
+    {
+        alarmManager.RaiseAlarm(
+            AlarmCode::PumpStartFailed,
+            "Pump",
+            "Pump failed to start.",
+            AlarmSeverity::Error);
+    }
+
+    return result;
 }
 
 bool MachineController::StopPump()
@@ -350,9 +396,28 @@ bool MachineController::OpenFlow(double targetFlowRate)
     }
 
     if (!currentMachine->getFlowController().SetTargetFlowRate(targetFlowRate))
-        return false;
+    {
+        alarmManager.RaiseAlarm(
+            AlarmCode::FlowOpenFailed,
+            "Flow",
+            "Failed to set target flow rate.",
+            AlarmSeverity::Error);
 
-    return currentMachine->getFlowController().Open();
+        return false;
+    }
+
+    bool result = currentMachine->getFlowController().Open();
+
+    if (!result)
+    {
+        alarmManager.RaiseAlarm(
+            AlarmCode::FlowOpenFailed,
+            "Flow",
+            "Flow controller failed to open.",
+            AlarmSeverity::Error);
+    }
+
+    return result;
 }
 
 bool MachineController::CloseFlow()

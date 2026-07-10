@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AlarmCode.h" />
     <ClInclude Include="AlarmManager.h" />
     <ClInclude Include="ControlEngineAPI.h" />
     <ClInclude Include="Controller.h" />

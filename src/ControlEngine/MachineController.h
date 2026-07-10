@@ -5,6 +5,7 @@
 #include "../ControlEngine/IMachineController.h"
 #include "../ControlEngine/EventLogger.h"
 #include "../ControlEngine/AlarmManager.h"
+#include "../ControlEngine/AlarmCode.h"
 
 class MachineController : public IMachineController
 {

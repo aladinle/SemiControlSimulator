@@ -126,6 +126,9 @@
     <ClInclude Include="AlarmManager.h">
       <Filter>Alarms</Filter>
     </ClInclude>
+    <ClInclude Include="AlarmCode.h">
+      <Filter>Alarms</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MachineManager.cpp">
