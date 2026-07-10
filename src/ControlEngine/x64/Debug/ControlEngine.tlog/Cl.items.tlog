@@ -1,3 +1,4 @@
+D:\Source Codes\SemiControlSimulator\src\ControlEngine\AlarmManager.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\AlarmManager.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\ControlEngineAPI.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\ControlEngineAPI.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\Controller.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\Controller.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\Device.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\Device.obj
@@ -11,6 +12,9 @@ D:\Source Codes\SemiControlSimulator\src\ControlEngine\MachineStateMachine.cpp;D
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\MotionController.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\MotionController.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\PressureSensor.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\PressureSensor.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\PumpController.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\PumpController.obj
+D:\Source Codes\SemiControlSimulator\src\ControlEngine\Recipe.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\Recipe.obj
+D:\Source Codes\SemiControlSimulator\src\ControlEngine\RecipeExecutor.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\RecipeExecutor.obj
+D:\Source Codes\SemiControlSimulator\src\ControlEngine\RecipeManager.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\RecipeManager.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\RobotController.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\RobotController.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\Sensor.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\Sensor.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\TemperatureSensor.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\TemperatureSensor.obj

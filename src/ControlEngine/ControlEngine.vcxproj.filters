@@ -52,6 +52,12 @@
     <Filter Include="Logging">
       <UniqueIdentifier>{85e92d64-e129-414d-9024-fca004e34fba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Alarms">
+      <UniqueIdentifier>{a1d6e43e-34fd-461e-abbb-3367ccdfaafd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Recipes">
+      <UniqueIdentifier>{20023c78-bac7-43ee-8c6b-9b45ff045304}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MachineManager.h">
@@ -120,6 +126,24 @@
     <ClInclude Include="EventLogger.h">
       <Filter>Logging</Filter>
     </ClInclude>
+    <ClInclude Include="AlarmManager.h">
+      <Filter>Alarms</Filter>
+    </ClInclude>
+    <ClInclude Include="AlarmCode.h">
+      <Filter>Alarms</Filter>
+    </ClInclude>
+    <ClInclude Include="RecipeStep.h">
+      <Filter>Recipes</Filter>
+    </ClInclude>
+    <ClInclude Include="Recipe.h">
+      <Filter>Recipes</Filter>
+    </ClInclude>
+    <ClInclude Include="RecipeManager.h">
+      <Filter>Recipes</Filter>
+    </ClInclude>
+    <ClInclude Include="RecipeExecutor.h">
+      <Filter>Recipes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MachineManager.cpp">
@@ -172,6 +196,18 @@
     </ClCompile>
     <ClCompile Include="EventLogger.cpp">
       <Filter>Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="AlarmManager.cpp">
+      <Filter>Alarms</Filter>
+    </ClCompile>
+    <ClCompile Include="Recipe.cpp">
+      <Filter>Recipes</Filter>
+    </ClCompile>
+    <ClCompile Include="RecipeManager.cpp">
+      <Filter>Recipes</Filter>
+    </ClCompile>
+    <ClCompile Include="RecipeExecutor.cpp">
+      <Filter>Recipes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

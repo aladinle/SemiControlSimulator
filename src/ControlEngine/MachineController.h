@@ -4,6 +4,8 @@
 #include "../ControlEngine/MachineManager.h"
 #include "../ControlEngine/IMachineController.h"
 #include "../ControlEngine/EventLogger.h"
+#include "../ControlEngine/AlarmManager.h"
+#include "../ControlEngine/AlarmCode.h"
 
 class MachineController : public IMachineController
 {
@@ -11,7 +13,8 @@ private:
     IMachineManager* machineManager;
     Machine* currentMachine;
 
-	EventLogger eventLogger;
+	EventLogger logger;
+    AlarmManager alarmManager;
 
 public:
     MachineController(IMachineManager* machineManager);
@@ -52,5 +55,6 @@ public:
     double GetVacuum();
 
 	const EventLogger& GetEventLogger() const;
+    AlarmManager& GetAlarmManager();
 };
 

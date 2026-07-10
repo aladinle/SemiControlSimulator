@@ -139,6 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AlarmCode.h" />
+    <ClInclude Include="AlarmManager.h" />
     <ClInclude Include="ControlEngineAPI.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Device.h" />
@@ -157,12 +159,17 @@
     <ClInclude Include="MotionController.h" />
     <ClInclude Include="PressureSensor.h" />
     <ClInclude Include="PumpController.h" />
+    <ClInclude Include="Recipe.h" />
+    <ClInclude Include="RecipeExecutor.h" />
+    <ClInclude Include="RecipeManager.h" />
+    <ClInclude Include="RecipeStep.h" />
     <ClInclude Include="RobotController.h" />
     <ClInclude Include="Sensor.h" />
     <ClInclude Include="TemperatureSensor.h" />
     <ClInclude Include="VacuumSensor.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AlarmManager.cpp" />
     <ClCompile Include="ControlEngineAPI.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Device.cpp" />
@@ -179,6 +186,9 @@
     <ClCompile Include="MotionController.cpp" />
     <ClCompile Include="PressureSensor.cpp" />
     <ClCompile Include="PumpController.cpp" />
+    <ClCompile Include="Recipe.cpp" />
+    <ClCompile Include="RecipeExecutor.cpp" />
+    <ClCompile Include="RecipeManager.cpp" />
     <ClCompile Include="RobotController.cpp" />
     <ClCompile Include="Sensor.cpp" />
     <ClCompile Include="TemperatureSensor.cpp" />
