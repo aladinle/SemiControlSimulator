@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AlarmManager.h" />
     <ClInclude Include="ControlEngineAPI.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Device.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="VacuumSensor.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AlarmManager.cpp" />
     <ClCompile Include="ControlEngineAPI.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Device.cpp" />

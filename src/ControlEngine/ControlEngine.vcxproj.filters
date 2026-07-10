@@ -52,6 +52,9 @@
     <Filter Include="Logging">
       <UniqueIdentifier>{85e92d64-e129-414d-9024-fca004e34fba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Alarms">
+      <UniqueIdentifier>{a1d6e43e-34fd-461e-abbb-3367ccdfaafd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MachineManager.h">
@@ -120,6 +123,9 @@
     <ClInclude Include="EventLogger.h">
       <Filter>Logging</Filter>
     </ClInclude>
+    <ClInclude Include="AlarmManager.h">
+      <Filter>Alarms</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MachineManager.cpp">
@@ -172,6 +178,9 @@
     </ClCompile>
     <ClCompile Include="EventLogger.cpp">
       <Filter>Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="AlarmManager.cpp">
+      <Filter>Alarms</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
