@@ -6,6 +6,8 @@
 
 #include "MachineManager.h"
 #include "MachineController.h"
+#include <Recipe.h>
+#include <RecipeExecutor.h>
 
 namespace
 {
@@ -283,6 +285,77 @@ namespace
         std::cout
             << "===========================================\n";
     }
+
+    bool TestRecipeExecution(IMachineController& controller)
+    {
+        std::cout << "\n========== RECIPE EXECUTION TEST ==========\n";
+
+        bool allPassed = true;
+
+        allPassed &= Check(
+            controller.ResetMachine(),
+            "Reset machine before recipe");
+
+        allPassed &= Check(
+            controller.GetMachineStateString() == "Offline",
+            "Machine state is Offline before recipe");
+
+        Recipe pumpDown("PumpDown");
+
+        pumpDown.AddStep({
+            RecipeCommand::InitializeMachine,
+            0.0,
+            "Initialize Machine"
+            });
+
+        pumpDown.AddStep({
+            RecipeCommand::StartMachine,
+            0.0,
+            "Start Machine"
+            });
+
+        pumpDown.AddStep({
+            RecipeCommand::HomeRobot,
+            0.0,
+            "Home Robot"
+            });
+
+        pumpDown.AddStep({
+            RecipeCommand::StartPump,
+            3.2,
+            "Start Pump"
+            });
+
+        pumpDown.AddStep({
+            RecipeCommand::OpenFlow,
+            15.0,
+            "Open Flow"
+            });
+
+        RecipeExecutor executor(&controller);
+
+        allPassed &= Check(
+            executor.ExecuteRecipe(pumpDown),
+            "Execute PumpDown recipe");
+
+        allPassed &= Check(
+            controller.GetMachineStateString() == "Running",
+            "Machine remains Running after recipe");
+
+        allPassed &= Check(
+            controller.GetRobotPosition() == 0,
+            "Robot is at home position");
+
+        allPassed &= Check(
+            controller.GetPumpPressure() == 3.2,
+            "Pump pressure is 3.2");
+
+        allPassed &= Check(
+            controller.GetCurrentFlowRate() == 15.0,
+            "Flow rate is 15.0");
+
+        return allPassed;
+    }
 }
 
 int main()
@@ -319,7 +392,10 @@ int main()
     allTestsPassed &= TestFlowController(machineController);
     allTestsPassed &= TestSensors(machineController);
     allTestsPassed &= TestStopMachine(machineController);
+    allTestsPassed &= TestRecipeExecution(machineController);
+    // Alarm test intentionally moves machine into Error.
     allTestsPassed &= TestAlarmManager(machineController);
+    
 
     PrintEventLog(machineController);
 

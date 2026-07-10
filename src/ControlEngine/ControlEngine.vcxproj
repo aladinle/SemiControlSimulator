@@ -159,6 +159,10 @@
     <ClInclude Include="MotionController.h" />
     <ClInclude Include="PressureSensor.h" />
     <ClInclude Include="PumpController.h" />
+    <ClInclude Include="Recipe.h" />
+    <ClInclude Include="RecipeExecutor.h" />
+    <ClInclude Include="RecipeManager.h" />
+    <ClInclude Include="RecipeStep.h" />
     <ClInclude Include="RobotController.h" />
     <ClInclude Include="Sensor.h" />
     <ClInclude Include="TemperatureSensor.h" />
@@ -182,6 +186,9 @@
     <ClCompile Include="MotionController.cpp" />
     <ClCompile Include="PressureSensor.cpp" />
     <ClCompile Include="PumpController.cpp" />
+    <ClCompile Include="Recipe.cpp" />
+    <ClCompile Include="RecipeExecutor.cpp" />
+    <ClCompile Include="RecipeManager.cpp" />
     <ClCompile Include="RobotController.cpp" />
     <ClCompile Include="Sensor.cpp" />
     <ClCompile Include="TemperatureSensor.cpp" />
