@@ -3,12 +3,14 @@
 
 #include <iostream>
 #include <string>
+#include <cmath>
 
 #include "MachineManager.h"
 #include "MachineController.h"
 #include <Recipe.h>
 #include <RecipeExecutor.h>
 #include <SimulationEngine.h>
+#include <PumpSimulator.h>
 
 namespace
 {
@@ -382,6 +384,50 @@ namespace
 
         return allPassed;
     }
+
+    bool TestPumpSimulator()
+    {
+        std::cout << "\n========== PUMP SIMULATOR TEST ==========\n";
+
+        bool allPassed = true;
+
+        PumpSimulator pump;
+
+        allPassed &= Check(pump.GetCurrentPressure() == 0.0, "Initial pump pressure is zero");
+
+        allPassed &= Check( !pump.IsRunning(), "Pump simulator is initially stopped");
+
+        pump.SetRampRate(1.0);
+        pump.Start(3.0);
+
+        allPassed &= Check(pump.IsRunning(), "Pump simulator started");
+
+        allPassed &= Check(pump.GetTargetPressure() == 3.0, "Pump target pressure is 3.0");
+
+        pump.Update(1.0);
+
+        allPassed &= Check(std::abs(pump.GetCurrentPressure() - 1.0) < 0.0001, "Pressure reaches 1.0 after one second");
+
+        pump.Update(1.0);
+
+        allPassed &= Check(std::abs(pump.GetCurrentPressure() - 2.0) < 0.0001, "Pressure reaches 2.0 after two seconds");
+
+        pump.Update(1.0);
+
+        allPassed &= Check(std::abs(pump.GetCurrentPressure() - 3.0) < 0.0001, "Pressure reaches target");
+
+        allPassed &= Check(pump.IsStable(), "Pump pressure is stable");
+
+        pump.Stop();
+
+        allPassed &= Check(!pump.IsRunning(), "Pump simulator stopped");
+
+        pump.Reset();
+
+        allPassed &= Check(pump.GetCurrentPressure() == 0.0, "Pump simulator reset");
+
+        return allPassed;
+    }
 }
 
 int main()
@@ -425,6 +471,7 @@ int main()
     PrintEventLog(machineController);
 
     allTestsPassed &= TestSimulationEngine();
+    allTestsPassed &= TestPumpSimulator();
 
     std::cout << "\n===========================================\n";    
 

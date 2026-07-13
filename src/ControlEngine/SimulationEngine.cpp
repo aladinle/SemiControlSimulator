@@ -1,4 +1,5 @@
 #include "SimulationEngine.h"
+#include "PumpSimulator.h"
 
 SimulationEngine::SimulationEngine(): running(false), simulationTime(0.0)
 {

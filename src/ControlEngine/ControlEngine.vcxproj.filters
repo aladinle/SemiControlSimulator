@@ -150,6 +150,15 @@
     <ClInclude Include="SimulationEngine.h">
       <Filter>Simulation</Filter>
     </ClInclude>
+    <ClInclude Include="PumpSimulator.h">
+      <Filter>Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="SimulatorBase.h">
+      <Filter>Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="RampSimulator.h">
+      <Filter>Simulation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MachineManager.cpp">
@@ -216,6 +225,15 @@
       <Filter>Recipes</Filter>
     </ClCompile>
     <ClCompile Include="SimulationEngine.cpp">
+      <Filter>Simulation</Filter>
+    </ClCompile>
+    <ClCompile Include="PumpSimulator.cpp">
+      <Filter>Simulation</Filter>
+    </ClCompile>
+    <ClCompile Include="SimulatorBase.cpp">
+      <Filter>Simulation</Filter>
+    </ClCompile>
+    <ClCompile Include="RampSimulator.cpp">
       <Filter>Simulation</Filter>
     </ClCompile>
   </ItemGroup>

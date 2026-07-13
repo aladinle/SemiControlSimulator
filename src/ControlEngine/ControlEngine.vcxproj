@@ -159,6 +159,8 @@
     <ClInclude Include="MotionController.h" />
     <ClInclude Include="PressureSensor.h" />
     <ClInclude Include="PumpController.h" />
+    <ClInclude Include="PumpSimulator.h" />
+    <ClInclude Include="RampSimulator.h" />
     <ClInclude Include="Recipe.h" />
     <ClInclude Include="RecipeExecutor.h" />
     <ClInclude Include="RecipeManager.h" />
@@ -166,6 +168,7 @@
     <ClInclude Include="RobotController.h" />
     <ClInclude Include="Sensor.h" />
     <ClInclude Include="SimulationEngine.h" />
+    <ClInclude Include="SimulatorBase.h" />
     <ClInclude Include="TemperatureSensor.h" />
     <ClInclude Include="VacuumSensor.h" />
   </ItemGroup>
@@ -187,12 +190,15 @@
     <ClCompile Include="MotionController.cpp" />
     <ClCompile Include="PressureSensor.cpp" />
     <ClCompile Include="PumpController.cpp" />
+    <ClCompile Include="PumpSimulator.cpp" />
+    <ClCompile Include="RampSimulator.cpp" />
     <ClCompile Include="Recipe.cpp" />
     <ClCompile Include="RecipeExecutor.cpp" />
     <ClCompile Include="RecipeManager.cpp" />
     <ClCompile Include="RobotController.cpp" />
     <ClCompile Include="Sensor.cpp" />
     <ClCompile Include="SimulationEngine.cpp" />
+    <ClCompile Include="SimulatorBase.cpp" />
     <ClCompile Include="TemperatureSensor.cpp" />
     <ClCompile Include="VacuumSensor.cpp" />
   </ItemGroup>
