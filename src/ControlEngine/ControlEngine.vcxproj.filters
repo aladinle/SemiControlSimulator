@@ -159,6 +159,9 @@
     <ClInclude Include="RampSimulator.h">
       <Filter>Simulation</Filter>
     </ClInclude>
+    <ClInclude Include="RobotSimulator.h">
+      <Filter>Simulation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MachineManager.cpp">
@@ -234,6 +237,9 @@
       <Filter>Simulation</Filter>
     </ClCompile>
     <ClCompile Include="RampSimulator.cpp">
+      <Filter>Simulation</Filter>
+    </ClCompile>
+    <ClCompile Include="RobotSimulator.cpp">
       <Filter>Simulation</Filter>
     </ClCompile>
   </ItemGroup>

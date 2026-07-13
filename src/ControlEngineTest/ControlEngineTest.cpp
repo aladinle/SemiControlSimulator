@@ -11,6 +11,7 @@
 #include <RecipeExecutor.h>
 #include <SimulationEngine.h>
 #include <PumpSimulator.h>
+#include <RobotSimulator.h>
 
 namespace
 {
@@ -21,9 +22,13 @@ namespace
             std::cout << "[PASS] " << testName << "\n";
             return true;
         }
+        else 
+        {
+            std::cerr << "[FAIL] " << testName << "\n";
+            return false;
+        }
 
-        std::cerr << "[FAIL] " << testName << "\n";
-        return false;
+        return condition;
     }
 
     bool TestMachineLifecycle(MachineController& controller)
@@ -102,21 +107,21 @@ namespace
 
         bool allPassed = true;
 
-        allPassed &= Check(
-            controller.StartPump(3.2),
-            "Start pump with target pressure 3.2");
+        controller.ResetSimulation();
+        controller.StartSimulation();
+        
+        controller.StartPump(3.2);
 
-        allPassed &= Check(
-            controller.GetPumpPressure() == 3.2,
-            "Pump pressure reaches 3.2");
+        allPassed &= Check(controller.GetPumpPressure() == 0.0, "Initial pressure is zero");
 
-        allPassed &= Check(
-            controller.StopPump(),
-            "Stop pump");
+        while (!controller.GetSimulationEngine().GetPumpSimulator().IsStable())
+        {
+            controller.UpdateSimulation(0.1);
+        }
 
-        allPassed &= Check(
-            controller.GetPumpPressure() == 0.0,
-            "Pump pressure returns to 0");
+        Check(std::abs(controller.GetPumpPressure() - 3.2) < 0.001, "Pump reaches target pressure");
+
+        controller.StopSimulation();
 
         return allPassed;
     }
@@ -303,6 +308,9 @@ namespace
             controller.GetMachineStateString() == "Offline",
             "Machine state is Offline before recipe");
 
+        controller.ResetSimulation();
+        controller.StartSimulation();
+
         Recipe pumpDown("PumpDown");
 
         pumpDown.AddStep({
@@ -350,12 +358,37 @@ namespace
             "Robot is at home position");
 
         allPassed &= Check(
-            controller.GetPumpPressure() == 3.2,
-            "Pump pressure is 3.2");
+            !controller.IsPumpStable(),
+            "Pump begins ramping toward target pressure");
+
+
+        //
+        // Pump is now simulated, so pressure ramps over time.
+        //
+        constexpr double deltaTime = 0.1;
+        constexpr int maxUpdates = 1000;
+
+        int updateCount = 0;
+
+        while (!controller.IsPumpStable() && updateCount < maxUpdates)
+        {
+            controller.UpdateSimulation(deltaTime);
+            ++updateCount;
+        }
 
         allPassed &= Check(
-            controller.GetCurrentFlowRate() == 15.0,
+            controller.IsPumpStable(),
+            "Pump becomes stable before timeout");
+
+        allPassed &= Check(
+            std::abs(controller.GetPumpPressure() - 3.2) < 0.001,
+            "Pump pressure reaches 3.2");
+
+        allPassed &= Check(
+            std::abs(controller.GetCurrentFlowRate() - 15.0) < 0.001,
             "Flow rate is 15.0");
+
+        controller.StopSimulation();
 
         return allPassed;
     }
@@ -428,6 +461,112 @@ namespace
 
         return allPassed;
     }
+
+    bool TestRobotSimulator()
+    {
+        std::cout << "\n========== ROBOT SIMULATOR TEST ==========\n";
+
+        bool allPassed = true;
+
+        RobotSimulator robot;
+
+        allPassed &= Check(robot.GetPosition() == 0.0, "Initial robot position is Home");
+
+        robot.MoveTo(100);
+
+        allPassed &= Check(robot.IsRunning(), "Robot movement started");
+
+        robot.Update(0.25);
+
+        std::cout << "Robot Position: " << robot.GetPosition() << "\n";
+
+        allPassed &= Check(robot.GetPosition() > 0.0, "Robot moved");
+
+        while (!robot.IsStable())
+        {
+            robot.Update(0.1);
+        }
+
+        allPassed &= Check(std::abs(robot.GetPosition() - 100.0) < 0.001, "Robot reached target");
+
+        robot.Reset();
+
+        allPassed &= Check(robot.GetPosition() == 0.0, "Robot reset");
+
+        return allPassed;
+    }
+
+    // Integration test
+    bool TestSimulationIntegration()
+    {
+        std::cout << "\n========== SIMULATION INTEGRATION ==========\n";
+
+        bool allPassed = true;
+
+        SimulationEngine sim;
+
+        sim.Start();
+
+        sim.GetPumpSimulator().Start(3.0);
+
+        sim.GetRobotSimulator().MoveTo(100);
+
+        while (sim.GetSimulationTime() < 4.0)
+        {
+            sim.Update(0.1);
+
+            std::cout << "Time " << sim.GetSimulationTime()
+                      << " Pump " << sim.GetPumpSimulator().GetCurrentPressure()
+                      << " Robot " << sim.GetRobotSimulator().GetPosition()
+                      << "\n";
+        }
+
+        allPassed &= Check(sim.GetPumpSimulator().IsStable(), "Pump stable");
+
+        allPassed &= Check(sim.GetRobotSimulator().IsStable(), "Robot stable");
+
+        return allPassed;
+    }
+
+    bool TestPumpSimulationIntegration(MachineController& controller)
+    {
+        std::cout << "\n========== PUMP SIMULATION INTEGRATION TEST ==========\n";
+
+        bool allPassed = true;
+
+        allPassed &= Check(controller.ResetMachine(), "Reset machine before pump simulation");
+
+        allPassed &= Check(controller.InitializeMachine(), "Initialize machine before pump simulation");
+
+        allPassed &= Check(controller.StartMachine(), "Start machine before pump simulation");
+
+        controller.ResetSimulation();
+        controller.StartSimulation();
+
+        allPassed &= Check(controller.StartPump(3.2), "Start simulated pump at 3.2 bar");
+
+        allPassed &= Check(controller.GetPumpPressure() == 0.0, "Pump pressure initially remains zero");
+
+        controller.UpdateSimulation(1.0);
+
+        const double pressureAfterOneSecond = controller.GetPumpPressure();
+
+        std::cout << "Pressure after 1 second: " << pressureAfterOneSecond << "\n";
+
+        allPassed &= Check(pressureAfterOneSecond > 0.0 && pressureAfterOneSecond < 3.2, "Pressure ramps instead of changing instantly");
+
+        while (controller.GetPumpPressure() < 3.2)
+        {
+            controller.UpdateSimulation(0.1);
+        }
+
+        allPassed &= Check(std::abs(controller.GetPumpPressure() - 3.2) < 0.001, "Pump reaches target pressure");
+
+        controller.StopPump();
+        controller.StopSimulation();
+
+        return allPassed;
+    }
 }
 
 int main()
@@ -472,6 +611,9 @@ int main()
 
     allTestsPassed &= TestSimulationEngine();
     allTestsPassed &= TestPumpSimulator();
+    allTestsPassed &= TestRobotSimulator();
+    allTestsPassed &= TestSimulationIntegration();
+    allTestsPassed &= TestPumpSimulationIntegration(machineController);
 
     std::cout << "\n===========================================\n";    
 

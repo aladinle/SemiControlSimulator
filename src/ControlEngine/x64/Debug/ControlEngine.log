@@ -1,6 +1,4 @@
-﻿  PumpSimulator.cpp
-  RampSimulator.cpp
-  SimulationEngine.cpp
-  SimulatorBase.cpp
+﻿  MachineController.cpp
+  RecipeExecutor.cpp
   Generating Code...
   ControlEngine.vcxproj -> D:\Source Codes\SemiControlSimulator\x64\Debug\ControlEngine.lib

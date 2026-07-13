@@ -6,6 +6,7 @@
 #include "../ControlEngine/EventLogger.h"
 #include "../ControlEngine/AlarmManager.h"
 #include "../ControlEngine/AlarmCode.h"
+#include "SimulationEngine.h"
 
 class MachineController : public IMachineController
 {
@@ -13,48 +14,63 @@ private:
     IMachineManager* machineManager;
     Machine* currentMachine;
 
-	EventLogger logger;
+    EventLogger logger;
     AlarmManager alarmManager;
+    SimulationEngine simulationEngine;
 
 public:
-    MachineController(IMachineManager* machineManager);
+    explicit MachineController(IMachineManager* machineManager);
 
-	bool SelectMachine(int index);
+    bool SelectMachine(int index) override;
 
-    bool InitializeMachine();
-    bool StartMachine();
-    bool StopMachine();
-    bool EmergencyStop();
-    bool ResetMachine();
-    bool PauseMachine();
-    bool ResumeMachine();
-    bool CompleteMachine();
+    bool InitializeMachine() override;
+    bool StartMachine() override;
+    bool StopMachine() override;
+    bool EmergencyStop() override;
+    bool ResetMachine() override;
+    bool PauseMachine() override;
+    bool ResumeMachine() override;
+    bool CompleteMachine() override;
 
-    std::string GetMachineStateString();
+    std::string GetMachineStateString() override;
 
-    bool HomeRobot();
-    bool MoveRobotToPosition(int position);
-    int GetRobotPosition();
+    bool HomeRobot() override;
+    bool MoveRobotToPosition(int position) override;
+    int GetRobotPosition() override;
 
-    double GetPumpPressure();
-    double GetCurrentFlowRate();
-    bool StartPump(double targetPressure);
-    bool StopPump();
+    bool StartPump(double targetPressure) override;
+    bool StopPump() override;
+    double GetPumpPressure() override;
+    bool IsPumpStable() const override;
 
-    bool OpenFlow(double targetFlowRate);
-    bool CloseFlow();
+    bool OpenFlow(double targetFlowRate) override;
+    bool CloseFlow() override;
+    double GetCurrentFlowRate() override;
 
     double ReadTemperature();
     double ReadPressure();
     double ReadFlow();
     double ReadVacuum();
 
-    double GetTemperature();
-    double GetPressure();
-    double GetFlow();
-    double GetVacuum();
+    double GetTemperature() override;
+    double GetPressure() override;
+    double GetFlow() override;
+    double GetVacuum() override;
 
-	const EventLogger& GetEventLogger() const;
+    const EventLogger& GetEventLogger() const;
+
     AlarmManager& GetAlarmManager();
-};
+    const AlarmManager& GetAlarmManager() const;
 
+    void StartSimulation() override;
+    void StopSimulation() override;
+    void ResetSimulation() override;
+    void UpdateSimulation(double deltaTime) override;
+
+    double GetSimulationTime() const override;
+
+    SimulationEngine& GetSimulationEngine();
+    const SimulationEngine& GetSimulationEngine() const;
+
+    void RunSimulationUntilIdle(double dt);
+};

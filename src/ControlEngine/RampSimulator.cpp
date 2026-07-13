@@ -3,6 +3,11 @@
 #include <algorithm>
 #include <cmath>
 
+void RampSimulator::SetCurrentValue(double value)
+{
+    currentValue = value;
+}
+
 RampSimulator::RampSimulator(double initialValue,
                              double initialRampRate,
                              double tolerance)

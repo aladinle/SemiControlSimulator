@@ -1,7 +1,15 @@
 #include "MachineController.h"
 
+// ============================================================
+// Construction and machine selection
+// ============================================================
+
 MachineController::MachineController(IMachineManager* machineManager)
-    : machineManager(machineManager), currentMachine(nullptr), logger(), alarmManager(&logger)
+    : machineManager(machineManager),
+    currentMachine(nullptr),
+    logger(),
+    alarmManager(&logger),
+    simulationEngine()
 {
 }
 
@@ -31,12 +39,18 @@ bool MachineController::SelectMachine(int index)
         return false;
     }
 
-    logger.Info("Machine", "Machine selected successfully.");
-
     alarmManager.SetStateMachine(&currentMachine->getStateMachine());
+
+    simulationEngine.Reset();
+
+    logger.Info("Machine", "Machine selected successfully.");
 
     return true;
 }
+
+// ============================================================
+// Machine lifecycle
+// ============================================================
 
 bool MachineController::InitializeMachine()
 {
@@ -68,19 +82,33 @@ bool MachineController::InitializeMachine()
     if (!isInitialized)
     {
         logger.Error("Machine", "Initialization failed.");
+        currentMachine->getStateMachine().SetError();
         return false;
     }
 
-    logger.Info("Machine", "Initialization successful.");
+    const bool result = currentMachine->getStateMachine().Initialize();
 
-    return currentMachine->getStateMachine().Initialize();
+    if (result)
+    {
+        logger.Info("Machine", "Initialization successful. Machine is READY.");
+    }
+    else
+    {
+        logger.Warning("Machine", "Initialization was rejected by the state machine.");
+    }
+
+    return result;
 }
 
 bool MachineController::StartMachine()
 {
     if (currentMachine == nullptr)
     {
-        logger.Error("Machine", "StartMachine(): No machine selected.");
+        alarmManager.RaiseAlarm(
+            AlarmCode::MachineNotSelected,
+            "Machine",
+            "StartMachine failed: no machine selected.",
+            AlarmSeverity::Critical);
         return false;
     }
 
@@ -104,7 +132,11 @@ bool MachineController::StopMachine()
 {
     if (currentMachine == nullptr)
     {
-        logger.Error("Machine", "StopMachine(): No machine selected.");
+        alarmManager.RaiseAlarm(
+            AlarmCode::MachineNotSelected,
+            "Machine",
+            "StopMachine failed: no machine selected.",
+            AlarmSeverity::Critical);
         return false;
     }
 
@@ -112,8 +144,12 @@ bool MachineController::StopMachine()
 
     currentMachine->getPump().Stop();
     currentMachine->getFlowController().Close();
+    currentMachine->getMotion().Stop();
 
-    bool result = currentMachine->getStateMachine().Stop();
+    // Return all simulated values to their initial states.
+    simulationEngine.Reset();
+
+    const bool result = currentMachine->getStateMachine().Stop();
 
     if (result)
     {
@@ -131,7 +167,11 @@ bool MachineController::EmergencyStop()
 {
     if (currentMachine == nullptr)
     {
-        logger.Error("Machine", "EmergencyStop(): No machine selected.");
+        alarmManager.RaiseAlarm(
+            AlarmCode::MachineNotSelected,
+            "Machine",
+            "EmergencyStop failed: no machine selected.",
+            AlarmSeverity::Critical);
         return false;
     }
 
@@ -139,9 +179,9 @@ bool MachineController::EmergencyStop()
     currentMachine->getPump().Stop();
     currentMachine->getFlowController().Close();
 
-    logger.Info("Machine", "EEMERGENCY STOPPING machine.");
+    simulationEngine.Reset();
 
-    bool result = currentMachine->getStateMachine().EmergencyStop();
+    const bool result = currentMachine->getStateMachine().EmergencyStop();
 
     if (result)
     {
@@ -159,11 +199,21 @@ bool MachineController::ResetMachine()
 {
     if (currentMachine == nullptr)
     {
-        logger.Error("Machine", "ResetMachine(): No machine selected.");
+        alarmManager.RaiseAlarm(
+            AlarmCode::MachineNotSelected,
+            "Machine",
+            "ResetMachine failed: no machine selected.",
+            AlarmSeverity::Critical);
         return false;
     }
 
-    bool result = currentMachine->getStateMachine().Reset();
+    simulationEngine.Reset();
+
+    currentMachine->getPump().Stop();
+    currentMachine->getFlowController().Close();
+    currentMachine->getMotion().Stop();
+
+    const bool result = currentMachine->getStateMachine().Reset();
 
     if (result)
     {
@@ -181,14 +231,19 @@ bool MachineController::PauseMachine()
 {
     if (currentMachine == nullptr)
     {
-        logger.Error("Machine", "PauseMachine(): No machine selected.");
+        alarmManager.RaiseAlarm(
+            AlarmCode::MachineNotSelected,
+            "Machine",
+            "PauseMachine failed: no machine selected.",
+            AlarmSeverity::Critical);
         return false;
     }
 
-    bool result = currentMachine->getStateMachine().Pause();
+    const bool result = currentMachine->getStateMachine().Pause();
 
     if (result)
     { 
+        simulationEngine.Stop();
         logger.Info("Machine", "Machine is now PAUSED.");
     }
     else
@@ -203,14 +258,19 @@ bool MachineController::ResumeMachine()
 {
     if (currentMachine == nullptr)
     {
-        logger.Error("Machine", "ResumeMachine(): No machine selected.");
+        alarmManager.RaiseAlarm(
+            AlarmCode::MachineNotSelected,
+            "Machine",
+            "ResumeMachine failed: no machine selected.",
+            AlarmSeverity::Critical);
         return false;
     }
 
-    bool result = currentMachine->getStateMachine().Resume();
+    const bool result = currentMachine->getStateMachine().Resume();
 
     if (result)
     {
+        simulationEngine.Start();
         logger.Info("Machine", "Machine is now RESUMED.");
     }
     else 
@@ -225,14 +285,19 @@ bool MachineController::CompleteMachine()
 {
     if (currentMachine == nullptr)
     {
-        logger.Error("Machine", "CompleteMachine(): No machine selected.");
+        alarmManager.RaiseAlarm(
+            AlarmCode::MachineNotSelected,
+            "Machine",
+            "CompleteMachine failed: no machine selected.",
+            AlarmSeverity::Critical);
         return false;
     }
 
-    bool result = currentMachine->getStateMachine().Complete();
+    const bool result = currentMachine->getStateMachine().Complete();
 
     if (result)
     {
+        simulationEngine.Stop();
         logger.Info("Machine", "Machine is now COMPLETED.");
     }
     else
@@ -254,17 +319,25 @@ std::string MachineController::GetMachineStateString()
     return currentMachine->getStateMachine().GetStateString();
 }
 
+// ============================================================
+// Robot control
+// ============================================================
+
 bool MachineController::HomeRobot()
 {
     if (currentMachine == nullptr)
     {
-        logger.Error("Machine", "HomeRobot(): No machine selected.");
+        alarmManager.RaiseAlarm(
+            AlarmCode::MachineNotSelected,
+            "Robot",
+            "HomeRobot failed: no machine selected.",
+            AlarmSeverity::Critical);
         return false;
     }
 
     logger.Info("Robot", "Executing HOME command.");
 
-    bool result = currentMachine->getRobot().Home();
+    const bool result = currentMachine->getRobot().Home();
 
     if (result)
     {
@@ -287,11 +360,15 @@ bool MachineController::MoveRobotToPosition(int position)
 {
     if (currentMachine == nullptr)
     {
-        logger.Error("Machine", "MoveRobotToPosition(): No machine selected.");
+        alarmManager.RaiseAlarm(
+            AlarmCode::MachineNotSelected,
+            "Robot",
+            "MoveRobotToPosition failed: no machine selected.",
+            AlarmSeverity::Critical);
         return false;
     }
 
-    bool result = currentMachine->getRobot().MoveToPosition(position);
+    const bool result = currentMachine->getRobot().MoveToPosition(position);
 
     if (result)
     {
@@ -315,21 +392,25 @@ int MachineController::GetRobotPosition()
     if (currentMachine == nullptr)
     {
         logger.Error("Machine", "No machine selected.");
-        return false;
+        return -1;
     }
 
 	return currentMachine->getRobot().GetCurrentPosition();
 }
+
+// ============================================================
+// Pump control and simulation
+// ============================================================
 
 double MachineController::GetPumpPressure()
 {
     if (currentMachine == nullptr)
     {
         logger.Error("Machine", "No machine selected.");
-        return false;
+        return 0.0;
     }
 
-	return currentMachine->getPump().GetPressure();
+    return simulationEngine.GetPumpSimulator().GetCurrentPressure();
 }
 
 double MachineController::GetCurrentFlowRate()
@@ -337,7 +418,7 @@ double MachineController::GetCurrentFlowRate()
     if (currentMachine == nullptr)
     {
         logger.Error("Machine", "No machine selected.");
-        return false;
+        return 0.0;
     }
 
 	return currentMachine->getFlowController().GetCurrentFlowRate();
@@ -347,7 +428,23 @@ bool MachineController::StartPump(double targetPressure)
 {
     if (currentMachine == nullptr)
     {
-        logger.Error("Machine", "No machine selected.");
+        alarmManager.RaiseAlarm(
+            AlarmCode::MachineNotSelected,
+            "Pump",
+            "StartPump failed: no machine selected.",
+            AlarmSeverity::Critical);
+
+        return false;
+    }
+
+    if (targetPressure < 0.0)
+    {
+        alarmManager.RaiseAlarm(
+            AlarmCode::PumpStartFailed,
+            "Pump",
+            "Target pressure cannot be negative.",
+            AlarmSeverity::Error);
+
         return false;
     }
 
@@ -356,35 +453,62 @@ bool MachineController::StartPump(double targetPressure)
         alarmManager.RaiseAlarm(
             AlarmCode::PumpStartFailed,
             "Pump",
-            "Failed to set target pressure.",
+            "Failed to configure target pressure.",
             AlarmSeverity::Error);
 
         return false;
     }
 
-    bool result = currentMachine->getPump().Start();
-
-    if (!result)
+    if (!currentMachine->getPump().Start())
     {
         alarmManager.RaiseAlarm(
             AlarmCode::PumpStartFailed,
             "Pump",
-            "Pump failed to start.",
+            "Pump controller failed to start.",
             AlarmSeverity::Error);
+
+        return false;
     }
 
-    return result;
+    simulationEngine.GetPumpSimulator().Start(targetPressure);
+
+    logger.Info("Pump", "Pump simulation started toward target pressure.");
+
+    return true;
 }
 
 bool MachineController::StopPump()
 {
     if (currentMachine == nullptr)
     {
-        logger.Error("Machine", "No machine selected.");
+        alarmManager.RaiseAlarm(
+            AlarmCode::MachineNotSelected,
+            "Pump",
+            "StopPump failed: no machine selected.",
+            AlarmSeverity::Critical);
+
         return false;
     }
 
-    return currentMachine->getPump().Stop();
+    const bool result = currentMachine->getPump().Stop();
+
+    simulationEngine.GetPumpSimulator().Stop();
+
+    if (result)
+    {
+        logger.Info("Pump", "Pump stopped.");
+    }
+    else
+    {
+        logger.Warning("Pump", "Pump controller failed to stop.");
+    }
+
+    return result;
+}
+
+bool MachineController::IsPumpStable() const
+{
+    return simulationEngine.GetPumpSimulator().IsStable();
 }
 
 bool MachineController::OpenFlow(double targetFlowRate)
@@ -527,4 +651,59 @@ const EventLogger& MachineController::GetEventLogger() const
 AlarmManager& MachineController::GetAlarmManager()
 {
     return alarmManager;
+}
+
+const AlarmManager& MachineController::GetAlarmManager() const
+{
+    return alarmManager;
+}
+
+void MachineController::StartSimulation()
+{
+    simulationEngine.Start();
+    logger.Info("Simulation", "Simulation engine started.");
+}
+
+void MachineController::StopSimulation()
+{
+    simulationEngine.Stop();
+    logger.Info("Simulation", "Simulation engine stopped.");
+}
+
+void MachineController::ResetSimulation()
+{
+    simulationEngine.Reset();
+    logger.Info("Simulation", "Simulation engine reset.");
+}
+
+void MachineController::UpdateSimulation(double deltaTime)
+{
+    simulationEngine.Update(deltaTime);
+}
+
+double MachineController::GetSimulationTime() const
+{
+    return simulationEngine.GetSimulationTime();
+}
+
+SimulationEngine& MachineController::GetSimulationEngine()
+{
+    return simulationEngine;
+}
+
+const SimulationEngine& MachineController::GetSimulationEngine() const
+{
+    return simulationEngine;
+}
+
+void MachineController::RunSimulationUntilIdle(double dt)
+{
+    StartSimulation();
+
+    while (!IsPumpStable())
+    {
+        UpdateSimulation(dt);
+    }
+
+    StopSimulation();
 }

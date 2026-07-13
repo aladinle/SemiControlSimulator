@@ -12,6 +12,8 @@ protected:
     double rampRate;
     double tolerance;
 
+    void SetCurrentValue(double value);
+
 public:
     RampSimulator(double initialValue, double initialRampRate, double tolerance = 0.0001);
     virtual ~RampSimulator() = default;

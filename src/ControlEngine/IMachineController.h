@@ -21,6 +21,7 @@ public:
     virtual bool HomeRobot() = 0;
     virtual bool MoveRobotToPosition(int position) = 0;
 
+    virtual bool IsPumpStable() const = 0;
     virtual bool StartPump(double pressure) = 0;
     virtual bool StopPump() = 0;
 
@@ -38,4 +39,11 @@ public:
     virtual double GetPressure() = 0;
     virtual double GetFlow() = 0;
     virtual double GetVacuum() = 0;
+
+    virtual void StartSimulation() = 0;
+    virtual void StopSimulation() = 0;
+    virtual void ResetSimulation() = 0;
+    virtual void UpdateSimulation(double deltaTime) = 0;
+
+    virtual double GetSimulationTime() const = 0;    
 };

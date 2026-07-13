@@ -166,6 +166,7 @@
     <ClInclude Include="RecipeManager.h" />
     <ClInclude Include="RecipeStep.h" />
     <ClInclude Include="RobotController.h" />
+    <ClInclude Include="RobotSimulator.h" />
     <ClInclude Include="Sensor.h" />
     <ClInclude Include="SimulationEngine.h" />
     <ClInclude Include="SimulatorBase.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="RecipeExecutor.cpp" />
     <ClCompile Include="RecipeManager.cpp" />
     <ClCompile Include="RobotController.cpp" />
+    <ClCompile Include="RobotSimulator.cpp" />
     <ClCompile Include="Sensor.cpp" />
     <ClCompile Include="SimulationEngine.cpp" />
     <ClCompile Include="SimulatorBase.cpp" />
