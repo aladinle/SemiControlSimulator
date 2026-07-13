@@ -165,6 +165,7 @@
     <ClInclude Include="RecipeStep.h" />
     <ClInclude Include="RobotController.h" />
     <ClInclude Include="Sensor.h" />
+    <ClInclude Include="SimulationEngine.h" />
     <ClInclude Include="TemperatureSensor.h" />
     <ClInclude Include="VacuumSensor.h" />
   </ItemGroup>
@@ -191,6 +192,7 @@
     <ClCompile Include="RecipeManager.cpp" />
     <ClCompile Include="RobotController.cpp" />
     <ClCompile Include="Sensor.cpp" />
+    <ClCompile Include="SimulationEngine.cpp" />
     <ClCompile Include="TemperatureSensor.cpp" />
     <ClCompile Include="VacuumSensor.cpp" />
   </ItemGroup>

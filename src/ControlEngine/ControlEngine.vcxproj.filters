@@ -58,6 +58,9 @@
     <Filter Include="Recipes">
       <UniqueIdentifier>{20023c78-bac7-43ee-8c6b-9b45ff045304}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Simulation">
+      <UniqueIdentifier>{792a412d-37b9-45bf-a2ca-7144ebd8a5a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MachineManager.h">
@@ -144,6 +147,9 @@
     <ClInclude Include="RecipeExecutor.h">
       <Filter>Recipes</Filter>
     </ClInclude>
+    <ClInclude Include="SimulationEngine.h">
+      <Filter>Simulation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MachineManager.cpp">
@@ -208,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="RecipeExecutor.cpp">
       <Filter>Recipes</Filter>
+    </ClCompile>
+    <ClCompile Include="SimulationEngine.cpp">
+      <Filter>Simulation</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

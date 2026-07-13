@@ -17,5 +17,6 @@ D:\Source Codes\SemiControlSimulator\src\ControlEngine\RecipeExecutor.cpp;D:\Sou
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\RecipeManager.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\RecipeManager.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\RobotController.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\RobotController.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\Sensor.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\Sensor.obj
+D:\Source Codes\SemiControlSimulator\src\ControlEngine\SimulationEngine.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\SimulationEngine.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\TemperatureSensor.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\TemperatureSensor.obj
 D:\Source Codes\SemiControlSimulator\src\ControlEngine\VacuumSensor.cpp;D:\Source Codes\SemiControlSimulator\src\ControlEngine\x64\Debug\VacuumSensor.obj

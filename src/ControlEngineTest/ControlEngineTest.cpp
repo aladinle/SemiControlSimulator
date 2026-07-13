@@ -8,6 +8,7 @@
 #include "MachineController.h"
 #include <Recipe.h>
 #include <RecipeExecutor.h>
+#include <SimulationEngine.h>
 
 namespace
 {
@@ -356,6 +357,31 @@ namespace
 
         return allPassed;
     }
+
+    bool TestSimulationEngine()
+    {
+        std::cout << "\n========== SIMULATION ENGINE TEST ==========\n";
+
+        bool allPassed = true;
+
+        SimulationEngine simulation;
+
+        allPassed &= Check(simulation.GetSimulationTime() == 0.0, "Initial simulation time is zero");
+        allPassed &= Check(!simulation.IsRunning(), "Simulation is initially stopped");
+        simulation.Start();
+        allPassed &= Check(simulation.IsRunning(), "Simulation started");
+        simulation.Update(0.5);
+        simulation.Update(0.5);
+        simulation.Update(1.0);
+        allPassed &= Check(simulation.GetSimulationTime() == 2.0, "Simulation time is 2.0 seconds");
+        simulation.Stop();
+        allPassed &= Check(!simulation.IsRunning(), "Simulation stopped");
+        simulation.Reset();
+        allPassed &= Check(simulation.GetSimulationTime() == 0.0, "Simulation reset");
+        allPassed &= Check(!simulation.IsRunning(), "Simulation remains stopped after reset");
+
+        return allPassed;
+    }
 }
 
 int main()
@@ -396,10 +422,11 @@ int main()
     // Alarm test intentionally moves machine into Error.
     allTestsPassed &= TestAlarmManager(machineController);
     
-
     PrintEventLog(machineController);
 
-    std::cout << "\n===========================================\n";
+    allTestsPassed &= TestSimulationEngine();
+
+    std::cout << "\n===========================================\n";    
 
     if (allTestsPassed)
     {
@@ -408,5 +435,6 @@ int main()
     }
 
     std::cerr << "ONE OR MORE SUBSYSTEM TESTS FAILED\n";
+
     return 1;
 }
