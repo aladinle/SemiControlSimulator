@@ -20,8 +20,6 @@ namespace OperatorUI.Views
 
             selectedMachine = machine;
 
-            MessageBox.Show($"Opening {selectedMachine.MachineId}\n" + $"Index = {selectedMachine.Index}");
-
             engine = new ControlEngineService();
             engine.Initialize();
 
@@ -46,6 +44,7 @@ namespace OperatorUI.Views
             timer.Tick += Timer_Tick;
 
             MachineIdText.Text = selectedMachine.MachineId;
+            MachineTypeText.Text = selectedMachine.MachineType;
 
             RefreshDashboard();
 
@@ -67,44 +66,67 @@ namespace OperatorUI.Views
         {
             string state = engine.SelectedMachineState();
 
-            MachineStateText.Text = state;
-            MachineStateText.Foreground =
-                GetStateBrush(state);
+            MachineStateText.Text = state.ToUpper();
+            MachineStateText.Foreground = GetStateBrush(state);
 
-            SimulationTimeText.Text =
-                $"{engine.SimulationTime():F1} s";
+            SimulationTimeText.Text = "Simulation Time: " +  $"{engine.SimulationTime():F1} s";
 
-            PumpPressureText.Text =
-                $"{engine.PumpPressure():F2} bar";
+            double pressure = engine.PumpPressure();
 
-            PumpStatusText.Text =
-                engine.PumpStable()
-                    ? "Stable"
-                    : "Ramping";
+            PumpPressureText.Text = $"{pressure:F2} bar";
 
-            FlowRateText.Text =
-                $"{engine.FlowRate():F2} sccm";
+            PumpPressureBar.Value = pressure;
 
-            TemperatureText.Text =
-                $"{engine.Temperature():F2} °C";
+            if (engine.PumpStable())
+            {
+                PumpStatusText.Text = "🟢 Stable";
+                PumpStatusText.Foreground = Brushes.Green;
+            }
+            else
+            {
+                PumpStatusText.Text = "🟠 Ramping";
+                PumpStatusText.Foreground = Brushes.DarkOrange;
+            }
 
-            VacuumText.Text =
-                $"{engine.Vacuum():F4} Torr";
+            double pumpPercentage = pressure / 3.2 * 100.0;
+
+            PumpPercentText.Text = $"{pumpPercentage:F0}%";
+
+            FlowRateText.Text = $"{engine.FlowRate():F2} sccm";
+
+            TemperatureText.Text = $"{engine.Temperature():F2} °C";
+
+            VacuumText.Text = $"{engine.Vacuum():F4} Torr";
+
+            EventLogText.Text = engine.EventLog();
+            EventLogText.ScrollToEnd();
         }
 
         private static Brush GetStateBrush(string state)
         {
-            return state switch
+            switch (state)
             {
-                "Ready" => Brushes.Green,
-                "Running" => Brushes.DodgerBlue,
-                "Stable" => Brushes.Green,
-                "Paused" => Brushes.DarkOrange,
-                "Completed" => Brushes.Purple,
-                "Error" => Brushes.Red,
-                "Emergency Stop" => Brushes.DarkRed,
-                _ => Brushes.Gray
-            };
+                case "Running":
+                    return Brushes.LimeGreen;
+
+                case "Ready":
+                    return Brushes.DeepSkyBlue;
+
+                case "Paused":
+                    return Brushes.Orange;
+
+                case "Offline":
+                    return Brushes.Gray;
+
+                case "Completed":
+                    return Brushes.MediumPurple;
+
+                case "Error":
+                    return Brushes.Red;
+
+                default:
+                    return Brushes.Black;
+            }
         }
 
         private void InitializeButton_Click(

@@ -41,5 +41,8 @@ extern "C"
     CONTROLENGINE_API double GetCurrentFlowRate();
     CONTROLENGINE_API double GetTemperature();
     CONTROLENGINE_API double GetVacuum();
+
+    // Event Logger
+    CONTROLENGINE_API int GetEventLog(char* buffer, int bufferSize);
 }
 

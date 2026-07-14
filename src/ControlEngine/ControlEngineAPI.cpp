@@ -251,3 +251,15 @@ double GetVacuum()
 
 	return machineController.GetVacuum();
 }
+
+CONTROLENGINE_API int GetEventLog(char* buffer, int bufferSize)
+{
+	if (!isEngineInitialized || buffer == nullptr || bufferSize < 0)
+	{
+		return -1;
+	}
+
+	std::string eventText = machineController.GetEventLogger().ToString();
+	strncpy_s(buffer, bufferSize, eventText.c_str(), _TRUNCATE);
+	return 0;
+}

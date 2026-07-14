@@ -97,3 +97,24 @@ void EventLogger::PrintLogs() const
 	}
 }
 
+std::string EventLogger::ToString() const
+{
+	std::ostringstream oss;
+
+	for (const auto& log : logs)
+	{
+		oss
+			<< "["
+			<< log.timestamp
+			<< "] "
+			<< LogLevelToString(log.level)
+			<< " | "
+			<< log.component
+			<< " | "
+			<< log.message
+			<< "\n";
+	}
+
+	return oss.str();
+}
+

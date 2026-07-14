@@ -77,6 +77,9 @@ namespace OperatorUI.Services
         [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern int SelectMachine(int index);
 
+        [DllImport("ControlEngine.dll", CallingConvention=CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private static extern int GetEventLog(StringBuilder buffer, int bufferSize);
+
         public void Initialize()
         {
             InitializeEngine();
@@ -195,6 +198,15 @@ namespace OperatorUI.Services
         public bool SelectMachineByIndex(int index)
         {
             return SelectMachine(index) != 0;
+        }
+
+        public string EventLog()
+        {
+            StringBuilder buffer = new StringBuilder(32768);
+
+            GetEventLog(buffer, buffer.Capacity);
+
+            return buffer.ToString();
         }
     }
 }

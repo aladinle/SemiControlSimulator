@@ -41,4 +41,5 @@ public:
 	void ClearLogs();
 
 	void PrintLogs() const;
+	std::string ToString() const;
 };
