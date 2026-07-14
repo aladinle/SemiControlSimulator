@@ -27,13 +27,13 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -46,7 +46,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -78,6 +78,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\ControlEngineCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -95,6 +96,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\ControlEngineCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -112,6 +114,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile />
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\ControlEngineCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -131,6 +134,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile />
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\ControlEngineCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -146,7 +150,6 @@
     <ClInclude Include="Device.h" />
     <ClInclude Include="EventLogger.h" />
     <ClInclude Include="FlowController.h" />
-    <ClInclude Include="FlowSensor.h" />
     <ClInclude Include="IController.h" />
     <ClInclude Include="IDevice.h" />
     <ClInclude Include="IMachineController.h" />
@@ -156,7 +159,6 @@
     <ClInclude Include="MachineController.h" />
     <ClInclude Include="MachineManager.h" />
     <ClInclude Include="MachineStateMachine.h" />
-    <ClInclude Include="MotionController.h" />
     <ClInclude Include="PressureSensor.h" />
     <ClInclude Include="PumpController.h" />
     <ClInclude Include="PumpSimulator.h" />
@@ -165,8 +167,6 @@
     <ClInclude Include="RecipeExecutor.h" />
     <ClInclude Include="RecipeManager.h" />
     <ClInclude Include="RecipeStep.h" />
-    <ClInclude Include="RobotController.h" />
-    <ClInclude Include="RobotSimulator.h" />
     <ClInclude Include="Sensor.h" />
     <ClInclude Include="SimulationEngine.h" />
     <ClInclude Include="SimulatorBase.h" />
@@ -174,35 +174,12 @@
     <ClInclude Include="VacuumSensor.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AlarmManager.cpp" />
     <ClCompile Include="ControlEngineAPI.cpp" />
-    <ClCompile Include="Controller.cpp" />
-    <ClCompile Include="Device.cpp" />
-    <ClCompile Include="EventLogger.cpp" />
-    <ClCompile Include="FlowController.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="FlowSensor.cpp" />
-    <ClCompile Include="Machine.cpp" />
-    <ClCompile Include="MachineController.cpp" />
-    <ClCompile Include="MachineManager.cpp" />
-    <ClCompile Include="MachineStateMachine.cpp" />
-    <ClCompile Include="MotionController.cpp" />
-    <ClCompile Include="PressureSensor.cpp" />
-    <ClCompile Include="PumpController.cpp" />
-    <ClCompile Include="PumpSimulator.cpp" />
-    <ClCompile Include="RampSimulator.cpp" />
-    <ClCompile Include="Recipe.cpp" />
-    <ClCompile Include="RecipeExecutor.cpp" />
-    <ClCompile Include="RecipeManager.cpp" />
-    <ClCompile Include="RobotController.cpp" />
-    <ClCompile Include="RobotSimulator.cpp" />
-    <ClCompile Include="Sensor.cpp" />
-    <ClCompile Include="SimulationEngine.cpp" />
-    <ClCompile Include="SimulatorBase.cpp" />
-    <ClCompile Include="TemperatureSensor.cpp" />
-    <ClCompile Include="VacuumSensor.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ControlEngineCore\ControlEngineCore.vcxproj">
+      <Project>{0b0521c5-244b-48d3-89d9-6a7793bba227}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

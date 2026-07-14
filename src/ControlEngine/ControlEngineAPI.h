@@ -1,7 +1,7 @@
 #pragma once
 
-// ControlEngine is built as a static library, so its public functions do not
-// use DLL import/export decorations.
+// ControlEngine is built as a DLL, so exported functions use import/export
+// decorations.
 #ifdef CONTROLENGINE_EXPORTS
 #define CONTROLENGINE_API __declspec(dllexport)
 #else
