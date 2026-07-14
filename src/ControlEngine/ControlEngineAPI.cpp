@@ -123,6 +123,36 @@ int StartSelectedMachine()
 	return machineController.StartMachine() ? 1 : 0;
 }
 
+CONTROLENGINE_API int GetSelectedMachineState(char* buffer, int bufferSize)
+{
+	if (!isEngineInitialized || buffer == nullptr || bufferSize <= 0)
+	{
+		return -1;
+	}
+
+	const std::string state = machineController.GetMachineStateString();
+
+	strncpy_s(buffer, static_cast<size_t>(bufferSize), state.c_str(), _TRUNCATE);
+
+	return 0;
+}
+
+int SelectMachine(int index)
+{
+	if (!isEngineInitialized)
+	{
+		InitializeEngine();
+	}
+
+	if (!isEngineInitialized)
+	{
+		return 0;
+	}
+
+	return machineController.SelectMachine(index) ? 1 : 0;
+}
+
+// Simulation
 void StartSimulation()
 {
 	machineController.StartSimulation();
@@ -190,4 +220,34 @@ int StartPumpSimulation(double targetPressure)
 	machineController.StartSimulation();
 
 	return machineController.StartPump(targetPressure) ? 1 : 0;
+}
+
+double GetCurrentFlowRate()
+{
+	if (!isEngineInitialized)
+	{
+		return 0.0;
+	}
+
+	return machineController.GetCurrentFlowRate();
+}
+
+double GetTemperature()
+{
+	if (!isEngineInitialized)
+	{
+		return 0.0;
+	}
+
+	return machineController.GetTemperature();
+}
+
+double GetVacuum()
+{
+	if (!isEngineInitialized)
+	{
+		return 0.0;
+	}
+
+	return machineController.GetVacuum();
 }

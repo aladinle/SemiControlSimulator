@@ -18,6 +18,7 @@ std::string MachineStateMachine::GetStateString() const
     case MachineState::Initializing:    return "Initializing";
     case MachineState::Ready:           return "Ready";
     case MachineState::Running:         return "Running";
+    case MachineState::Stable:          return "Stable";
     case MachineState::Paused:          return "Paused";
     case MachineState::Stopping:        return "Stopping";
     case MachineState::Completed:       return "Completed";
@@ -49,7 +50,8 @@ bool MachineStateMachine::Start()
 
 bool MachineStateMachine::Pause()
 {
-    if (currentState != MachineState::Running)
+    if (currentState != MachineState::Running &&
+        currentState != MachineState::Stable)
         return false;
 
     currentState = MachineState::Paused;
@@ -68,6 +70,7 @@ bool MachineStateMachine::Resume()
 bool MachineStateMachine::Stop()
 {
     if (currentState != MachineState::Running &&
+        currentState != MachineState::Stable &&
         currentState != MachineState::Paused)
         return false;
 
@@ -78,10 +81,20 @@ bool MachineStateMachine::Stop()
 
 bool MachineStateMachine::Complete()
 {
-    if (currentState != MachineState::Running)
+    if (currentState != MachineState::Running &&
+        currentState != MachineState::Stable)
         return false;
 
     currentState = MachineState::Completed;
+    return true;
+}
+
+bool MachineStateMachine::SetStable()
+{
+    if (currentState != MachineState::Running)
+        return false;
+
+    currentState = MachineState::Stable;
     return true;
 }
 

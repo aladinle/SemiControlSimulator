@@ -24,6 +24,8 @@ extern "C"
 	CONTROLENGINE_API int GetMachineType(int index, char* buffer, int bufferSize);
     CONTROLENGINE_API int InitializeSelectedMachine();
     CONTROLENGINE_API int StartSelectedMachine();
+    CONTROLENGINE_API int GetSelectedMachineState(char* buffer, int bufferSize);
+    CONTROLENGINE_API int SelectMachine(int index);
 
     // Simulation
     CONTROLENGINE_API void StartSimulation();
@@ -35,5 +37,9 @@ extern "C"
     CONTROLENGINE_API double GetPumpPressure();
     CONTROLENGINE_API int IsPumpStable();
     CONTROLENGINE_API int StartPumpSimulation(double targetPressure);
+
+    CONTROLENGINE_API double GetCurrentFlowRate();
+    CONTROLENGINE_API double GetTemperature();
+    CONTROLENGINE_API double GetVacuum();
 }
 

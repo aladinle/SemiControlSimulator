@@ -1,7 +1,9 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Threading;
+﻿using OperatorUI.Models;
 using OperatorUI.Services;
+using System;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace OperatorUI.Views
 {
@@ -10,38 +12,31 @@ namespace OperatorUI.Views
         private readonly ControlEngineService engine;
         private readonly DispatcherTimer timer;
 
-        public LiveMonitorWindow()
+        private readonly MachineInfo selectedMachine;
+
+        public LiveMonitorWindow(MachineInfo machine)
         {
             InitializeComponent();
 
+            selectedMachine = machine;
+
+            MessageBox.Show($"Opening {selectedMachine.MachineId}\n" + $"Index = {selectedMachine.Index}");
+
             engine = new ControlEngineService();
-            // Make sure engine is initialized before using simulation
             engine.Initialize();
 
-            if (!engine.InitializeSelected())
+            // Tell the native controller which machine to monitor.
+            if (!engine.SelectMachineByIndex(selectedMachine.Index))
             {
                 MessageBox.Show(
-                    "Machine initialization failed.",
-                    "Initialization Error",
+                    $"Unable to select machine {selectedMachine.MachineId}.",
+                    "Machine Selection Error",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
 
+                Close();
                 return;
             }
-
-            if (!engine.InitializeSelected())
-            {
-                MessageBox.Show(
-                    "Machine initialization failed.",
-                    "Initialization Error",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-
-                return;
-            }
-
-            engine.ResetSimulationEngine();
-            engine.StartSimulationEngine();
 
             timer = new DispatcherTimer
             {
@@ -50,50 +45,126 @@ namespace OperatorUI.Views
 
             timer.Tick += Timer_Tick;
 
-            engine.ResetSimulationEngine();
-            engine.StartSimulationEngine();
+            MachineIdText.Text = selectedMachine.MachineId;
+
+            RefreshDashboard();
 
             timer.Start();
         }
 
-        private void Timer_Tick(object? sender, EventArgs e)
+        private void Timer_Tick(
+            object? sender,
+            EventArgs e)
         {
             const double deltaTime = 0.1;
 
             engine.UpdateSimulationEngine(deltaTime);
 
-            SimulationTimeText.Text = $"{engine.SimulationTime():F1} s";
-
-            PumpPressureText.Text = $"{engine.PumpPressure():F2} bar";
-
-            PumpStatusText.Text = engine.PumpStable() ? "Stable" : "Ramping";
+            RefreshDashboard();
         }
 
-        private void StartPumpButton_Click(object sender, RoutedEventArgs e)
+        private void RefreshDashboard()
+        {
+            string state = engine.SelectedMachineState();
+
+            MachineStateText.Text = state;
+            MachineStateText.Foreground =
+                GetStateBrush(state);
+
+            SimulationTimeText.Text =
+                $"{engine.SimulationTime():F1} s";
+
+            PumpPressureText.Text =
+                $"{engine.PumpPressure():F2} bar";
+
+            PumpStatusText.Text =
+                engine.PumpStable()
+                    ? "Stable"
+                    : "Ramping";
+
+            FlowRateText.Text =
+                $"{engine.FlowRate():F2} sccm";
+
+            TemperatureText.Text =
+                $"{engine.Temperature():F2} °C";
+
+            VacuumText.Text =
+                $"{engine.Vacuum():F4} Torr";
+        }
+
+        private static Brush GetStateBrush(string state)
+        {
+            return state switch
+            {
+                "Ready" => Brushes.Green,
+                "Running" => Brushes.DodgerBlue,
+                "Stable" => Brushes.Green,
+                "Paused" => Brushes.DarkOrange,
+                "Completed" => Brushes.Purple,
+                "Error" => Brushes.Red,
+                "Emergency Stop" => Brushes.DarkRed,
+                _ => Brushes.Gray
+            };
+        }
+
+        private void InitializeButton_Click(
+            object sender,
+            RoutedEventArgs e)
+        {
+            if (!engine.InitializeSelected())
+            {
+                MessageBox.Show(
+                    "Machine initialization failed.",
+                    "Initialization Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+
+            RefreshDashboard();
+        }
+
+        private void StartMachineButton_Click(
+            object sender,
+            RoutedEventArgs e)
+        {
+            if (!engine.StartSelected())
+            {
+                MessageBox.Show(
+                    "Machine could not be started.",
+                    "Start Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+
+            RefreshDashboard();
+        }
+
+        private void StartPumpButton_Click(
+            object sender,
+            RoutedEventArgs e)
         {
             engine.ResetSimulationEngine();
             engine.StartSimulationEngine();
 
-            bool started = engine.StartPump(3.2);
-
-            if (!started)
+            if (!engine.StartPump(3.2))
             {
                 MessageBox.Show(
                     "Pump could not be started.",
                     "Pump Error",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
-
-                return;
             }
 
-            PumpStatusText.Text = "Ramping";
+            RefreshDashboard();
         }
 
-        private void StopButton_Click(object sender, RoutedEventArgs e)
+        private void StopButton_Click(
+            object sender,
+            RoutedEventArgs e)
         {
             timer.Stop();
             engine.StopSimulationEngine();
+            engine.ResetSimulationEngine();
             Close();
         }
 

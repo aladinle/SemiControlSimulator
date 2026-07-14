@@ -62,6 +62,21 @@ namespace OperatorUI.Services
         [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern int StartPumpSimulation(double targetPressure);
 
+        [DllImport("ControlEngine.dll", EntryPoint = "GetSelectedMachineState", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private static extern int NativeGetSelectedMachineState( StringBuilder buffer, int bufferSize);
+
+        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern double GetCurrentFlowRate();
+
+        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern double GetTemperature();
+
+        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern double GetVacuum();
+
+        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int SelectMachine(int index);
+
         public void Initialize()
         {
             InitializeEngine();
@@ -151,6 +166,35 @@ namespace OperatorUI.Services
         public bool StartPump(double targetPressure)
         {
             return StartPumpSimulation(targetPressure) != 0;
+        }
+
+        public string SelectedMachineState()
+        {
+            StringBuilder buffer = new StringBuilder(64);
+
+            int result = NativeGetSelectedMachineState(buffer, buffer.Capacity);
+
+            return result == 0 ? buffer.ToString() : "Unknown";
+        }
+
+        public double FlowRate()
+        {
+            return GetCurrentFlowRate();
+        }
+
+        public double Temperature()
+        {
+            return GetTemperature();
+        }
+
+        public double Vacuum()
+        {
+            return GetVacuum();
+        }
+
+        public bool SelectMachineByIndex(int index)
+        {
+            return SelectMachine(index) != 0;
         }
     }
 }

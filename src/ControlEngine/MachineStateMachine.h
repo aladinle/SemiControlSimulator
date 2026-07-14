@@ -7,6 +7,7 @@ enum class MachineState
     Initializing,
     Ready,
     Running,
+    Stable,
     Paused,
     Stopping,
     Completed,
@@ -32,6 +33,7 @@ public:
     bool Resume();
     bool Stop();
     bool Complete();
+    bool SetStable();
     bool SetError();
     bool EmergencyStop();
     bool Reset();

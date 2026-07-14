@@ -14,4 +14,16 @@
     <Folder Include="ViewModels\" />
   </ItemGroup>
 
+  <Target Name="CopyControlEngineDll" AfterTargets="Build">
+    <PropertyGroup>
+      <ControlEngineDll Condition="'$(Configuration)' == 'Release'">$(MSBuildThisFileDirectory)..\..\x64\Release\ControlEngine.dll</ControlEngineDll>
+      <ControlEngineDll Condition="'$(Configuration)' != 'Release'">$(MSBuildThisFileDirectory)..\..\x64\Debug\ControlEngine.dll</ControlEngineDll>
+    </PropertyGroup>
+
+    <Copy SourceFiles="$(ControlEngineDll)"
+          DestinationFolder="$(OutDir)"
+          SkipUnchangedFiles="true"
+          Condition="Exists('$(ControlEngineDll)')" />
+  </Target>
+
 </Project>

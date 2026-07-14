@@ -684,6 +684,21 @@ void MachineController::ResetSimulation()
 void MachineController::UpdateSimulation(double deltaTime)
 {
     simulationEngine.Update(deltaTime);
+
+    if (currentMachine == nullptr)
+    {
+        return;
+    }
+
+    const PumpSimulator& pumpSimulator = simulationEngine.GetPumpSimulator();
+
+    if (currentMachine->getStateMachine().GetCurrentState() == MachineState::Running &&
+        pumpSimulator.IsRunning() &&
+        pumpSimulator.IsStable())
+    {
+        currentMachine->getStateMachine().SetStable();
+        logger.Info("Machine", "Pump pressure is stable. Machine state is STABLE.");
+    }
 }
 
 double MachineController::GetSimulationTime() const

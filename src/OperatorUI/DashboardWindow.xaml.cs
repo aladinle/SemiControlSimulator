@@ -24,6 +24,9 @@ namespace OperatorUI
     public partial class DashboardWindow : Window
     {
         private readonly ControlEngineService controlEngineService = new ControlEngineService();
+
+        private MachineInfo? selectedMachine;
+
         public DashboardWindow(User user)
         {
             InitializeComponent();
@@ -61,10 +64,17 @@ namespace OperatorUI
         {
             return state switch
             {
-                0 => "Idle",
-                1 => "Running",
-                2 => "Error",
-                3 => "Maintenance",
+                0 => "Offline",
+                1 => "Initializing",
+                2 => "Ready",
+                3 => "Running",
+                4 => "Stable",
+                5 => "Paused",
+                6 => "Stopping",
+                7 => "Completed",
+                8 => "Error",
+                9 => "Emergency Stop",
+                10 => "Maintenance",
                 _ => "Unknown"
             };
         }
@@ -87,8 +97,15 @@ namespace OperatorUI
 
         private void LiveMonitorButton_Click(object sender, RoutedEventArgs e)
         {
-            var window = new LiveMonitorWindow();
-            window.Show();
+            MachineInfo selectedMachine = MachineGrid.SelectedItem as MachineInfo;
+
+            if (selectedMachine == null)
+            {
+                MessageBox.Show("Please select a machine first.");
+                return;
+            }
+
+            new LiveMonitorWindow(selectedMachine).Show();
         }
     }
 }
