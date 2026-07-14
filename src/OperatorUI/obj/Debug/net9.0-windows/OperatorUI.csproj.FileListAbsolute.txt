@@ -25,3 +25,5 @@ D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\ref
 D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\OperatorUI.pdb
 D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\OperatorUI.genruntimeconfig.cache
 D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\ref\OperatorUI.dll
+D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\Views\LiveMonitorWindow.baml
+D:\Source Codes\SemiControlSimulator\src\OperatorUI\obj\Debug\net9.0-windows\Views\LiveMonitorWindow.g.cs

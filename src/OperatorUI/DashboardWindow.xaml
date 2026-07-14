@@ -33,6 +33,7 @@
 
             <StackPanel Orientation="Horizontal">
                 <Button Content="Open" Width="100" Height="35" Margin="0,0,10,0" Click="OpenDetailsButton_Click"/>
+                <Button Content="Live Monitor" Width="140" Height="38" Margin="0,0,10,0" Click="LiveMonitorButton_Click"/>
                 <Button Content="Start" Width="100" Height="35" Margin="0,0,10,0"/>
                 <Button Content="Stop" Width="100" Height="35" Margin="0,0,10,0"/>
                 <Button Content="Refresh" Width="100" Height="35"/>

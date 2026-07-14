@@ -5,6 +5,9 @@
     <Compile Update="DashboardWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\LiveMonitorWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\MachineDetailsWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

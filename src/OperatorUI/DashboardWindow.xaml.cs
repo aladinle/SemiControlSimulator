@@ -84,5 +84,11 @@ namespace OperatorUI
             MachineDetailsWindow detailsWindow = new MachineDetailsWindow(selectedMachine);
             detailsWindow.ShowDialog();
         }
+
+        private void LiveMonitorButton_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new LiveMonitorWindow();
+            window.Show();
+        }
     }
 }

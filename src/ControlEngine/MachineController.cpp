@@ -1,4 +1,5 @@
 #include "MachineController.h"
+#include <iostream>
 
 // ============================================================
 // Construction and machine selection
@@ -54,6 +55,10 @@ bool MachineController::SelectMachine(int index)
 
 bool MachineController::InitializeMachine()
 {
+    std::cout << "Current state before Initialize: "
+        << currentMachine->getStateMachine().GetStateString()
+        << "\n";
+
     if (currentMachine == nullptr)
     {
         //logger.Error("Machine", "No machine selected.");
