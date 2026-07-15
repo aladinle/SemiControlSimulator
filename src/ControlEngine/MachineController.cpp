@@ -684,8 +684,19 @@ void MachineController::ResetSimulation()
 
 void MachineController::UpdateSimulation(double deltaTime)
 {
+    if (deltaTime <= 0.0)
+    {
+        return;
+    }
+
     simulationEngine.Update(deltaTime);
 
+    if (recipeExecutor.IsRunning())
+    {
+        recipeExecutor.Update(deltaTime);
+    }
+
+    /*
     if (currentMachine == nullptr)
     {
         return;
@@ -700,6 +711,9 @@ void MachineController::UpdateSimulation(double deltaTime)
         currentMachine->getStateMachine().SetStable();
         logger.Info("Machine", "Pump pressure is stable. Machine state is STABLE.");
     }
+    */
+
+    
 }
 
 double MachineController::GetSimulationTime() const
@@ -737,4 +751,81 @@ bool MachineController::ExecuteRecipe(const Recipe& recipe)
 RecipeExecutor& MachineController::GetRecipeExecutor()
 {
     return recipeExecutor;
+}
+
+double MachineController::GetRecipeProgress() const
+{
+    return recipeExecutor.GetProgressPercent();
+}
+
+std::string MachineController::GetRecipeName() const
+{
+    return recipeExecutor.GetCurrentRecipeName();
+}
+
+std::string MachineController::GetRecipeCurrentStep() const
+{
+    return recipeExecutor.GetCurrentStepDescription();
+}
+
+RecipeExecutionStatus MachineController::GetRecipeStatus() const
+{
+    return recipeExecutor.GetStatus();
+}
+
+bool MachineController::StartPumpDownRecipe()
+{
+    Recipe pumpDown("PumpDown");
+
+    pumpDown.AddStep({
+        RecipeCommand::InitializeMachine,
+        0.0,
+        1.0,
+        "Initialize Machine"
+        });
+
+    pumpDown.AddStep({
+        RecipeCommand::StartMachine,
+        0.0,
+        1.0,
+        "Start Machine"
+        });
+
+    pumpDown.AddStep({
+        RecipeCommand::HomeRobot,
+        0.0,
+        2.0,
+        "Home Robot"
+        });
+
+    pumpDown.AddStep({
+        RecipeCommand::StartPump,
+        3.2,
+        5.0,
+        "Pump Down"
+        });
+
+    pumpDown.AddStep({
+        RecipeCommand::OpenFlow,
+        15.0,
+        3.0,
+        "Open Flow"
+        });
+
+    return recipeExecutor.StartRecipe(pumpDown);
+}
+
+bool MachineController::StartRecipe(const Recipe& recipe)
+{
+    return recipeExecutor.StartRecipe(recipe);
+}
+
+void MachineController::UpdateRecipe(double deltaTime)
+{
+    recipeExecutor.Update(deltaTime);
+}
+
+bool MachineController::IsRecipeRunning() const
+{
+    return recipeExecutor.IsRunning();
 }

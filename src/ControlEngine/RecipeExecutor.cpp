@@ -1,49 +1,150 @@
 #include "RecipeExecutor.h"
 #include "IMachineController.h"
+#include "MachineController.h"
 
 RecipeExecutor::RecipeExecutor(IMachineController* controller)
     :   machineController(controller),
         status (RecipeExecutionStatus::Idle),
         currentRecipeName(),
-        currentStepDescription(),
+        currentStepDescription("Idle"),
+        activeSteps(),
         currentStepIndex(0),
-        totalSteps(0)
+        totalSteps(0),
+        currentStepElapsed(0.0),
+        currentStepStarted(false)
 {
 }
 
-bool RecipeExecutor::ExecuteRecipe(const Recipe& recipe)
+bool RecipeExecutor::StartRecipe(const Recipe& recipe)
 {
     if (machineController == nullptr)
     {
         status = RecipeExecutionStatus::Failed;
+        currentStepDescription = "No machine controller";
+        return false;
+    }
+
+    if (status == RecipeExecutionStatus::Running)
+    {
         return false;
     }
 
     currentRecipeName = recipe.GetName();
-    currentStepDescription.clear();
+    activeSteps = recipe.GetSteps();
+
     currentStepIndex = 0;
-    totalSteps = static_cast<int>(recipe.GetStepCount());
-    status = RecipeExecutionStatus::Running;
+    totalSteps = static_cast<int>(activeSteps.size());
 
-    const auto& steps = recipe.GetSteps();
-
-    for (int index = 0; index < totalSteps; ++index)
+    if (totalSteps == 0)
     {
-        currentStepIndex = index;
-        currentStepDescription = steps[index].description;
-
-        if (!ExecuteStep(steps[index]))
-        {
-            status = RecipeExecutionStatus::Failed; 
-            return false;
-        }
+        status = RecipeExecutionStatus::Failed;
+        currentStepDescription = "Recipe contains no steps";
+        return false;
     }
 
-    currentStepIndex = totalSteps;
-    currentStepDescription = "Recipe completed!";
-    status = RecipeExecutionStatus::Completed;
+    currentStepDescription = activeSteps[0].description;
+
+    currentStepElapsed = 0.0;
+    currentStepStarted = false;
+
+    status = RecipeExecutionStatus::Running;
 
     return true;
+}
+
+void RecipeExecutor::Update(double deltaTime)
+{
+    if (status != RecipeExecutionStatus::Running || deltaTime <= 0.0)
+    {
+        return;
+    }
+
+    if (currentStepIndex >= totalSteps)
+    {
+        status = RecipeExecutionStatus::Completed;
+        currentStepDescription = "Recipe completed";
+        return;
+    }
+
+    const RecipeStep& step = activeSteps[currentStepIndex];
+
+    currentStepDescription = step.description;
+
+    if (!currentStepStarted)
+    {
+        if (!ExecuteStep(step))
+        {
+            status = RecipeExecutionStatus::Failed;
+            return;
+        }
+
+        currentStepStarted = true;
+        currentStepElapsed = 0.0;
+    }
+
+    currentStepElapsed += deltaTime;
+    
+    if (currentStepElapsed < step.durationSeconds)
+    {
+        return;
+    }
+
+    ++currentStepIndex;
+
+    currentStepElapsed = 0.0;
+    currentStepStarted = false;
+
+    if (currentStepIndex >= totalSteps)
+    {
+        status = RecipeExecutionStatus::Completed;
+        currentStepDescription = "Recipe completed";
+    }
+    else
+    {
+        currentStepDescription =
+            activeSteps[currentStepIndex].description;
+    }
+}
+
+void RecipeExecutor::Reset()
+{
+    status = RecipeExecutionStatus::Idle;
+
+    currentRecipeName.clear();
+    currentStepDescription = "Idle";
+
+    activeSteps.clear();
+
+    currentStepIndex = 0;
+    totalSteps = 0;
+    currentStepElapsed = 0.0;
+    currentStepStarted = false;
+}
+
+bool RecipeExecutor::IsRunning() const
+{
+    return status == RecipeExecutionStatus::Running;
+}
+
+bool RecipeExecutor::ExecuteRecipe(const Recipe& recipe)
+{
+    if (!StartRecipe(recipe))
+    {
+        return false;
+    }
+
+    constexpr double deltaTime = 0.1;
+    constexpr int maxUpdates = 100000;
+
+    int updateCount = 0;
+
+    while (IsRunning() && updateCount < maxUpdates)
+    {
+        Update(deltaTime);
+        ++updateCount;
+    }
+
+    return status == RecipeExecutionStatus::Completed;
 }
 
 RecipeExecutionStatus RecipeExecutor::GetStatus() const

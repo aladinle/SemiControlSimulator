@@ -26,6 +26,8 @@ struct RecipeStep
     RecipeCommand command;
 
     double parameter = 0.0;
+    
+    double durationSeconds = 0.0;
 
     std::string description;
 };

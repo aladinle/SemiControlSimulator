@@ -44,5 +44,12 @@ extern "C"
 
     // Event Logger
     CONTROLENGINE_API int GetEventLog(char* buffer, int bufferSize);
+
+    // Recipe
+    CONTROLENGINE_API int StartPumpDownRecipe();
+    CONTROLENGINE_API double GetRecipeProgress();
+    CONTROLENGINE_API int GetRecipeStatus();
+    CONTROLENGINE_API int GetRecipeName(char* buffer, int bufferSize);
+    CONTROLENGINE_API int GetRecipeCurrentStep(char* buffer, int bufferSize);
 }
 

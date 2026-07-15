@@ -2,8 +2,7 @@
 
 #include "Recipe.h"
 #include "RecipeExecutionStatus.h"
-
-class IMachineController;
+#include "IMachineController.h"
 
 class RecipeExecutor
 {
@@ -14,11 +13,20 @@ private:
     std::string currentRecipeName;
     std::string currentStepDescription;
 
+    std::vector<RecipeStep> activeSteps;
+
     int currentStepIndex;
     int totalSteps;
+    double currentStepElapsed;
+    bool currentStepStarted;
 
 public:
     explicit RecipeExecutor(IMachineController* controller);
+
+    bool StartRecipe(const Recipe& recipe);
+    void Update(double deltaTime);
+    void Reset();
+    bool IsRunning() const;
 
     bool ExecuteRecipe(const Recipe& recipe);
 
@@ -29,6 +37,7 @@ public:
     int GetCurrentStepIndex() const;
     int GetTotalSteps() const;
     double GetProgressPercent() const;
+    const std::vector<RecipeStep>& GetSteps() const;
 
 private:
     bool ExecuteStep(const RecipeStep& step);

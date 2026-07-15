@@ -316,30 +316,35 @@ namespace
         pumpDown.AddStep({
             RecipeCommand::InitializeMachine,
             0.0,
+            1.0,
             "Initialize Machine"
             });
 
         pumpDown.AddStep({
             RecipeCommand::StartMachine,
             0.0,
+            1.0,
             "Start Machine"
             });
 
         pumpDown.AddStep({
             RecipeCommand::HomeRobot,
             0.0,
+            2.0,
             "Home Robot"
             });
 
         pumpDown.AddStep({
             RecipeCommand::StartPump,
             3.2,
+            5.0,
             "Start Pump"
             });
 
         pumpDown.AddStep({
             RecipeCommand::OpenFlow,
             15.0,
+            3.0,
             "Open Flow"
             });
 
@@ -565,6 +570,21 @@ namespace
 
         return allPassed;
     }
+
+    bool RunSimulationUntilRecipeCompletes(MachineController& controller, double timeoutSeconds = 30.0)
+    {
+        constexpr double deltaTime = 0.1;
+
+        double elapsed = 0.0;
+
+        while (controller.IsRecipeRunning() && elapsed < timeoutSeconds)
+        {
+            controller.UpdateSimulation(deltaTime);
+            elapsed += deltaTime;
+        }
+
+        return !controller.IsRecipeRunning();
+    }
 }
 
 int main()
@@ -612,6 +632,7 @@ int main()
     allTestsPassed &= TestRobotSimulator();
     allTestsPassed &= TestSimulationIntegration();
     allTestsPassed &= TestPumpSimulationIntegration(machineController);
+    allTestsPassed &= Check(RunSimulationUntilRecipeCompletes(machineController), "Recipe completed within timeout");
 
     std::cout << "\n===========================================\n";    
 

@@ -1,29 +1,6 @@
-﻿  AlarmManager.cpp
-  Controller.cpp
-  Device.cpp
-  EventLogger.cpp
-  FlowController.cpp
-  FlowSensor.cpp
-  Machine.cpp
-  MachineController.cpp
-  MachineManager.cpp
-  MachineStateMachine.cpp
-  MotionController.cpp
-  PressureSensor.cpp
-  PumpController.cpp
-  PumpSimulator.cpp
-  RampSimulator.cpp
+﻿  MachineController.cpp
   Recipe.cpp
   RecipeExecutor.cpp
   RecipeManager.cpp
-  RobotController.cpp
-  RobotSimulator.cpp
-  Generating Code...
-  Compiling...
-  Sensor.cpp
-  SimulationEngine.cpp
-  SimulatorBase.cpp
-  TemperatureSensor.cpp
-  VacuumSensor.cpp
   Generating Code...
   ControlEngineCore.vcxproj -> D:\Source Codes\SemiControlSimulator\x64\Debug\ControlEngineCore.lib

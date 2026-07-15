@@ -8,6 +8,8 @@
 #include "../ControlEngine/AlarmCode.h"
 #include "SimulationEngine.h"
 #include "RecipeExecutor.h"
+#include "Recipe.h"
+#include "RecipeStep.h"
 
 class MachineController : public IMachineController
 {
@@ -80,4 +82,14 @@ public:
     bool ExecuteRecipe(const Recipe& recipe) override;
 
     RecipeExecutor& GetRecipeExecutor() override;
+
+    bool StartPumpDownRecipe();
+    double GetRecipeProgress() const;
+    std::string GetRecipeName() const;
+    std::string GetRecipeCurrentStep() const;
+    RecipeExecutionStatus GetRecipeStatus() const;
+
+    bool StartRecipe(const Recipe& recipe);
+    void UpdateRecipe(double deltaTime);
+    bool IsRecipeRunning() const;
 };
