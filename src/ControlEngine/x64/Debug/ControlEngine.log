@@ -1,0 +1,7 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppClean.targets(77,5): warning : The process cannot access the file 'd:\source codes\semicontrolsimulator\src\controlengine\x64\debug\controlengine.ilk' because it is being used by another process.
+  ControlEngineAPI.cpp
+  LINK : D:\Source Codes\SemiControlSimulator\x64\Debug\ControlEngine.dll not found or not built by the last incremental link; performing full link
+     Creating library D:\Source Codes\SemiControlSimulator\x64\Debug\ControlEngine.lib and object D:\Source Codes\SemiControlSimulator\x64\Debug\ControlEngine.exp
+  ControlEngine.vcxproj -> D:\Source Codes\SemiControlSimulator\x64\Debug\ControlEngine.dll
+  'pwsh.exe' is not recognized as an internal or external command,
+  operable program or batch file.

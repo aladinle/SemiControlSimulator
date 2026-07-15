@@ -7,6 +7,7 @@
 #include "../ControlEngine/AlarmManager.h"
 #include "../ControlEngine/AlarmCode.h"
 #include "SimulationEngine.h"
+#include "RecipeExecutor.h"
 
 class MachineController : public IMachineController
 {
@@ -17,6 +18,8 @@ private:
     EventLogger logger;
     AlarmManager alarmManager;
     SimulationEngine simulationEngine;
+    
+    RecipeExecutor recipeExecutor;
 
 public:
     explicit MachineController(IMachineManager* machineManager);
@@ -73,4 +76,8 @@ public:
     const SimulationEngine& GetSimulationEngine() const;
 
     void RunSimulationUntilIdle(double dt);
+
+    bool ExecuteRecipe(const Recipe& recipe) override;
+
+    RecipeExecutor& GetRecipeExecutor() override;
 };

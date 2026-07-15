@@ -343,10 +343,8 @@ namespace
             "Open Flow"
             });
 
-        RecipeExecutor executor(&controller);
-
         allPassed &= Check(
-            executor.ExecuteRecipe(pumpDown),
+            controller.ExecuteRecipe(pumpDown),
             "Execute PumpDown recipe");
 
         allPassed &= Check(

@@ -69,7 +69,7 @@ namespace OperatorUI.Views
             MachineStateText.Text = state.ToUpper();
             MachineStateText.Foreground = GetStateBrush(state);
 
-            SimulationTimeText.Text = "Simulation Time: " +  $"{engine.SimulationTime():F1} s";
+            SimulationTimeText.Text = $"{engine.SimulationTime():F1} s";
 
             double pressure = engine.PumpPressure();
 

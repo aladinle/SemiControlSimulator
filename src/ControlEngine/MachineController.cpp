@@ -10,7 +10,8 @@ MachineController::MachineController(IMachineManager* machineManager)
     currentMachine(nullptr),
     logger(),
     alarmManager(&logger),
-    simulationEngine()
+    simulationEngine(),
+    recipeExecutor(this)
 {
 }
 
@@ -726,4 +727,14 @@ void MachineController::RunSimulationUntilIdle(double dt)
     }
 
     StopSimulation();
+}
+
+bool MachineController::ExecuteRecipe(const Recipe& recipe)
+{
+    return recipeExecutor.ExecuteRecipe(recipe);
+}
+
+RecipeExecutor& MachineController::GetRecipeExecutor()
+{
+    return recipeExecutor;
 }
