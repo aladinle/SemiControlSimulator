@@ -2,6 +2,9 @@
 
 #include <string>
 
+class Recipe;
+class RecipeExecutor;
+
 class IMachineController
 {
 public:
@@ -46,4 +49,7 @@ public:
     virtual void UpdateSimulation(double deltaTime) = 0;
 
     virtual double GetSimulationTime() const = 0;    
+
+    virtual bool ExecuteRecipe(const Recipe& recipe) = 0;
+    virtual RecipeExecutor& GetRecipeExecutor() = 0;
 };

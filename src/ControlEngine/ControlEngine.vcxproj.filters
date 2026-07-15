@@ -147,6 +147,9 @@
     <ClInclude Include="MachineManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RecipeExecutionStatus.h">
+      <Filter>Recipes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ControlEngineAPI.cpp">

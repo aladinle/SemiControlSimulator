@@ -14,15 +14,24 @@
     <Folder Include="ViewModels\" />
   </ItemGroup>
 
+  <Target Name="BuildControlEngineDll" BeforeTargets="Build">
+    <MSBuild Projects="$(MSBuildThisFileDirectory)..\ControlEngine\ControlEngine.vcxproj"
+             Targets="Build"
+             Properties="Configuration=$(Configuration);Platform=x64" />
+  </Target>
+
   <Target Name="CopyControlEngineDll" AfterTargets="Build">
     <PropertyGroup>
       <ControlEngineDll Condition="'$(Configuration)' == 'Release'">$(MSBuildThisFileDirectory)..\..\x64\Release\ControlEngine.dll</ControlEngineDll>
       <ControlEngineDll Condition="'$(Configuration)' != 'Release'">$(MSBuildThisFileDirectory)..\..\x64\Debug\ControlEngine.dll</ControlEngineDll>
     </PropertyGroup>
 
+    <Error Condition="!Exists('$(ControlEngineDll)')"
+           Text="ControlEngine.dll was not found at $(ControlEngineDll). Build the ControlEngine project first." />
+
     <Copy SourceFiles="$(ControlEngineDll)"
           DestinationFolder="$(OutDir)"
-          SkipUnchangedFiles="true"
+          SkipUnchangedFiles="false"
           Condition="Exists('$(ControlEngineDll)')" />
   </Target>
 

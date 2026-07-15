@@ -1,1 +1,6 @@
-﻿  ControlEngineCore.vcxproj -> D:\Source Codes\SemiControlSimulator\x64\Debug\ControlEngineCore.lib
+﻿  MachineController.cpp
+  Recipe.cpp
+  RecipeExecutor.cpp
+  RecipeManager.cpp
+  Generating Code...
+  ControlEngineCore.vcxproj -> D:\Source Codes\SemiControlSimulator\x64\Debug\ControlEngineCore.lib

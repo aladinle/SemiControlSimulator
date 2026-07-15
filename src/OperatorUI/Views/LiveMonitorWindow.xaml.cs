@@ -69,7 +69,7 @@ namespace OperatorUI.Views
             MachineStateText.Text = state.ToUpper();
             MachineStateText.Foreground = GetStateBrush(state);
 
-            SimulationTimeText.Text = "Simulation Time: " +  $"{engine.SimulationTime():F1} s";
+            SimulationTimeText.Text = $"{engine.SimulationTime():F1} s";
 
             double pressure = engine.PumpPressure();
 
@@ -100,6 +100,76 @@ namespace OperatorUI.Views
 
             EventLogText.Text = engine.EventLog();
             EventLogText.ScrollToEnd();
+
+            // Recipe
+            RecipeNameText.Text = engine.RecipeName();
+            RecipeStepText.Text = engine.CurrentRecipeStep();
+            double progress = engine.RecipeProgress();
+            RecipeProgressBar.Value = progress;
+            RecipeProgressText.Text = $"{progress:F0}%";
+            RecipeStatusText.Text = GetRecipeStatusString(engine.RecipeStatus());
+            RefreshRecipePanel();
+        }
+
+        private void RefreshRecipePanel()
+        {
+            RecipeNameText.Text = engine.RecipeName();
+
+            RecipeStepText.Text = engine.CurrentRecipeStep();
+
+            double progress = engine.RecipeProgress();
+
+            RecipeProgressBar.Value = progress;
+
+            RecipeProgressText.Text = $"{progress:F0}%";
+
+            int status = engine.RecipeStatus();
+
+            RecipeStatusText.Text = GetRecipeStatusString(status);
+
+            RecipeStatusText.Foreground = GetRecipeStatusBrush(status);
+        }
+
+        private Brush GetRecipeStatusBrush(int status)
+        {
+            switch (status)
+            {
+                case 0:
+                    return Brushes.Gray;
+
+                case 1:
+                    return Brushes.DeepSkyBlue;
+
+                case 2:
+                    return Brushes.Green;
+
+                case 3:
+                    return Brushes.Red;
+
+                default:
+                    return Brushes.Black;
+            }
+        }
+
+        private string GetRecipeStatusString(int status)
+        {
+            switch (status)
+            {
+                case 0:
+                    return "⚪ Idle";
+
+                case 1:
+                    return "🟢 Running";
+
+                case 2:
+                    return "✅ Completed";
+
+                case 3:
+                    return "🔴 Failed";
+
+                default:
+                    return "Unknown";
+            }
         }
 
         private static Brush GetStateBrush(string state)
@@ -196,6 +266,14 @@ namespace OperatorUI.Views
             engine.StopSimulationEngine();
 
             base.OnClosed(e);
+        }
+
+        private void RunRecipeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(!engine.RunPumpDownRecipe())
+            {
+                MessageBox.Show("Failed to start recipe.", "Recipe", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 }

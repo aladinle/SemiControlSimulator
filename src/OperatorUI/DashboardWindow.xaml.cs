@@ -25,8 +25,6 @@ namespace OperatorUI
     {
         private readonly ControlEngineService controlEngineService = new ControlEngineService();
 
-        private MachineInfo? selectedMachine;
-
         public DashboardWindow(User user)
         {
             InitializeComponent();

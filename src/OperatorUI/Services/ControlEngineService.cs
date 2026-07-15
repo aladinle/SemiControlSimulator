@@ -80,6 +80,25 @@ namespace OperatorUI.Services
         [DllImport("ControlEngine.dll", CallingConvention=CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern int GetEventLog(StringBuilder buffer, int bufferSize);
 
+        // ============================
+        // Recipe
+        // ============================
+
+        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int StartPumpDownRecipe();
+
+        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern double GetRecipeProgress();
+
+        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private static extern int GetRecipeName(StringBuilder buffer, int bufferSize);
+
+        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private static extern int GetRecipeCurrentStep( StringBuilder buffer, int bufferSize);
+
+        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int GetRecipeStatus();
+
         public void Initialize()
         {
             InitializeEngine();
@@ -208,5 +227,43 @@ namespace OperatorUI.Services
 
             return buffer.ToString();
         }
+
+        // ============================
+        // Recipe
+        // ============================
+
+        public bool RunPumpDownRecipe()
+        {
+            return StartPumpDownRecipe() != 0;
+        }
+
+        public double RecipeProgress()
+        {
+            return GetRecipeProgress();
+        }
+
+        public string RecipeName()
+        {
+            StringBuilder buffer = new StringBuilder(256);
+
+            int result = GetRecipeName(buffer, buffer.Capacity);
+
+            return result == 0 ? buffer.ToString() : "";
+        }
+
+        public string CurrentRecipeStep()
+        {
+            StringBuilder buffer = new StringBuilder(256);
+
+            int result = GetRecipeCurrentStep(buffer, buffer.Capacity);
+
+            return result == 0 ? buffer.ToString() : "";
+        }
+
+        public int RecipeStatus()
+        {
+            return GetRecipeStatus();
+        }
+
     }
 }

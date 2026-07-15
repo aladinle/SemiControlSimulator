@@ -65,6 +65,7 @@
     <ClInclude Include="..\ControlEngine\RampSimulator.h" />
     <ClInclude Include="..\ControlEngine\Recipe.h" />
     <ClInclude Include="..\ControlEngine\RecipeExecutor.h" />
+    <ClInclude Include="..\ControlEngine\RecipeExecutionStatus.h" />
     <ClInclude Include="..\ControlEngine\RecipeManager.h" />
     <ClInclude Include="..\ControlEngine\RecipeStep.h" />
     <ClInclude Include="..\ControlEngine\RobotController.h" />
