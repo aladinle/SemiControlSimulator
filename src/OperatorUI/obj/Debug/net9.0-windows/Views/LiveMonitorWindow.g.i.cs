@@ -148,7 +148,7 @@ namespace OperatorUI.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/OperatorUI;component/views/livemonitorwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/OperatorUI;V1.0.0.0;component/views/livemonitorwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\LiveMonitorWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
