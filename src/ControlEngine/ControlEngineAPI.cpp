@@ -306,3 +306,33 @@ CONTROLENGINE_API int GetRecipeCurrentStep(char* buffer, int bufferSize)
 
 	return 0;
 }
+
+int GetRecipeStepCount()
+{
+	if (!isEngineInitialized)
+		return 0;
+
+	return machineController.GetRecipeStepCount();
+}
+
+int GetRecipeCurrentStepIndex()
+{
+	if (!isEngineInitialized)
+		return 0;
+
+	return machineController.GetRecipeCurrentStepIndex();
+}
+
+int GetRecipeStepDescription(int index, char* buffer, int bufferSize)
+{
+	if (!isEngineInitialized || buffer == nullptr || bufferSize <= 0)
+	{
+		return -1;
+	}
+
+	std::string description = machineController.GetRecipeStepDescription(index);
+
+	strncpy_s(buffer, static_cast<size_t>(bufferSize), description.c_str(), _TRUNCATE);
+
+	return 0;
+}

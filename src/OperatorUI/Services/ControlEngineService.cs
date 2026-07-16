@@ -1,110 +1,219 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.InteropServices;
 
 namespace OperatorUI.Services
 {
     public class ControlEngineService
     {
+        // ============================================================
         // Machine
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
+        // ============================================================
+
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
         private static extern void InitializeEngine();
 
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
         private static extern int GetMachineCount();
 
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
         private static extern int StartMachine(int index);
 
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
         private static extern int StopMachine(int index);
 
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
         private static extern int GetMachineState(int index);
 
-        [DllImport("ControlEngine.dll", EntryPoint = "GetMachineId", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        private static extern int NativeGetMachineId(int index, StringBuilder buffer, int bufferSize);
+        [DllImport(
+            "ControlEngine.dll",
+            EntryPoint = "GetMachineId",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi)]
+        private static extern int NativeGetMachineId(
+            int index,
+            StringBuilder buffer,
+            int bufferSize);
 
-        [DllImport("ControlEngine.dll", EntryPoint = "GetMachineType", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        private static extern int NativeGetMachineType(int index, StringBuilder buffer, int bufferSize);
+        [DllImport(
+            "ControlEngine.dll",
+            EntryPoint = "GetMachineType",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi)]
+        private static extern int NativeGetMachineType(
+            int index,
+            StringBuilder buffer,
+            int bufferSize);
 
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
         private static extern int InitializeSelectedMachine();
 
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
         private static extern int StartSelectedMachine();
 
-        // Simulation
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void StartSimulation();
-
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void StopSimulation();
-
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void ResetSimulation();
-
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void UpdateSimulation(double deltaTime);
-
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern double GetSimulationTime();
-
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern double GetPumpPressure();
-
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int IsPumpStable();
-
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int StartPumpSimulation(double targetPressure);
-
-        [DllImport("ControlEngine.dll", EntryPoint = "GetSelectedMachineState", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        private static extern int NativeGetSelectedMachineState( StringBuilder buffer, int bufferSize);
-
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern double GetCurrentFlowRate();
-
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern double GetTemperature();
-
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern double GetVacuum();
-
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
         private static extern int SelectMachine(int index);
 
-        [DllImport("ControlEngine.dll", CallingConvention=CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        private static extern int GetEventLog(StringBuilder buffer, int bufferSize);
+        [DllImport(
+            "ControlEngine.dll",
+            EntryPoint = "GetSelectedMachineState",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi)]
+        private static extern int NativeGetSelectedMachineState(
+            StringBuilder buffer,
+            int bufferSize);
 
-        // ============================
+        // ============================================================
+        // Simulation
+        // ============================================================
+
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
+        private static extern void StartSimulation();
+
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
+        private static extern void StopSimulation();
+
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
+        private static extern void ResetSimulation();
+
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
+        private static extern void UpdateSimulation(double deltaTime);
+
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
+        private static extern double GetSimulationTime();
+
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
+        private static extern double GetPumpPressure();
+
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
+        private static extern int IsPumpStable();
+
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
+        private static extern int StartPumpSimulation(
+            double targetPressure);
+
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
+        private static extern double GetCurrentFlowRate();
+
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
+        private static extern double GetTemperature();
+
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
+        private static extern double GetVacuum();
+
+        // ============================================================
+        // Event log
+        // ============================================================
+
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi)]
+        private static extern int GetEventLog(
+            StringBuilder buffer,
+            int bufferSize);
+
+        // ============================================================
         // Recipe
-        // ============================
+        // ============================================================
 
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
         private static extern int StartPumpDownRecipe();
 
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
         private static extern double GetRecipeProgress();
 
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        private static extern int GetRecipeName(StringBuilder buffer, int bufferSize);
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi)]
+        private static extern int GetRecipeName(
+            StringBuilder buffer,
+            int bufferSize);
 
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        private static extern int GetRecipeCurrentStep( StringBuilder buffer, int bufferSize);
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi)]
+        private static extern int GetRecipeCurrentStep(
+            StringBuilder buffer,
+            int bufferSize);
 
-        [DllImport("ControlEngine.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
         private static extern int GetRecipeStatus();
+
+        // Recipe timeline native APIs
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
+        private static extern int GetRecipeStepCount();
+
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl)]
+        private static extern int GetRecipeCurrentStepIndex();
+
+        [DllImport(
+            "ControlEngine.dll",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi)]
+        private static extern int GetRecipeStepDescription(
+            int index,
+            StringBuilder buffer,
+            int bufferSize);
+
+        // ============================================================
+        // Public machine methods
+        // ============================================================
 
         public void Initialize()
         {
             InitializeEngine();
         }
 
-        // Machine
         public int MachineCount()
         {
             return GetMachineCount();
@@ -127,16 +236,30 @@ namespace OperatorUI.Services
 
         public string MachineId(int index)
         {
-            StringBuilder buffer = new StringBuilder(256);
-            int result = NativeGetMachineId(index, buffer, buffer.Capacity);
-            return result == 0 ? buffer.ToString() : "N/A";
+            var buffer = new StringBuilder(256);
+
+            int result = NativeGetMachineId(
+                index,
+                buffer,
+                buffer.Capacity);
+
+            return result == 0
+                ? buffer.ToString()
+                : "N/A";
         }
 
         public string MachineType(int index)
         {
-            StringBuilder buffer = new StringBuilder(256);
-            int result = NativeGetMachineType(index, buffer, buffer.Capacity);
-            return result == 0 ? buffer.ToString() : "N/A";
+            var buffer = new StringBuilder(256);
+
+            int result = NativeGetMachineType(
+                index,
+                buffer,
+                buffer.Capacity);
+
+            return result == 0
+                ? buffer.ToString()
+                : "N/A";
         }
 
         public bool InitializeSelected()
@@ -149,7 +272,28 @@ namespace OperatorUI.Services
             return StartSelectedMachine() != 0;
         }
 
-        // Simulation
+        public bool SelectMachineByIndex(int index)
+        {
+            return SelectMachine(index) != 0;
+        }
+
+        public string SelectedMachineState()
+        {
+            var buffer = new StringBuilder(64);
+
+            int result = NativeGetSelectedMachineState(
+                buffer,
+                buffer.Capacity);
+
+            return result == 0
+                ? buffer.ToString()
+                : "Unknown";
+        }
+
+        // ============================================================
+        // Public simulation methods
+        // ============================================================
+
         public void StartSimulationEngine()
         {
             StartSimulation();
@@ -190,15 +334,6 @@ namespace OperatorUI.Services
             return StartPumpSimulation(targetPressure) != 0;
         }
 
-        public string SelectedMachineState()
-        {
-            StringBuilder buffer = new StringBuilder(64);
-
-            int result = NativeGetSelectedMachineState(buffer, buffer.Capacity);
-
-            return result == 0 ? buffer.ToString() : "Unknown";
-        }
-
         public double FlowRate()
         {
             return GetCurrentFlowRate();
@@ -214,23 +349,26 @@ namespace OperatorUI.Services
             return GetVacuum();
         }
 
-        public bool SelectMachineByIndex(int index)
-        {
-            return SelectMachine(index) != 0;
-        }
+        // ============================================================
+        // Public event log method
+        // ============================================================
 
         public string EventLog()
         {
-            StringBuilder buffer = new StringBuilder(32768);
+            var buffer = new StringBuilder(32768);
 
-            GetEventLog(buffer, buffer.Capacity);
+            int result = GetEventLog(
+                buffer,
+                buffer.Capacity);
 
-            return buffer.ToString();
+            return result == 0
+                ? buffer.ToString()
+                : string.Empty;
         }
 
-        // ============================
-        // Recipe
-        // ============================
+        // ============================================================
+        // Public recipe methods
+        // ============================================================
 
         public bool RunPumpDownRecipe()
         {
@@ -244,20 +382,28 @@ namespace OperatorUI.Services
 
         public string RecipeName()
         {
-            StringBuilder buffer = new StringBuilder(256);
+            var buffer = new StringBuilder(256);
 
-            int result = GetRecipeName(buffer, buffer.Capacity);
+            int result = GetRecipeName(
+                buffer,
+                buffer.Capacity);
 
-            return result == 0 ? buffer.ToString() : "";
+            return result == 0
+                ? buffer.ToString()
+                : string.Empty;
         }
 
         public string CurrentRecipeStep()
         {
-            StringBuilder buffer = new StringBuilder(256);
+            var buffer = new StringBuilder(256);
 
-            int result = GetRecipeCurrentStep(buffer, buffer.Capacity);
+            int result = GetRecipeCurrentStep(
+                buffer,
+                buffer.Capacity);
 
-            return result == 0 ? buffer.ToString() : "";
+            return result == 0
+                ? buffer.ToString()
+                : string.Empty;
         }
 
         public int RecipeStatus()
@@ -265,5 +411,32 @@ namespace OperatorUI.Services
             return GetRecipeStatus();
         }
 
+        // ============================================================
+        // Public recipe timeline methods
+        // ============================================================
+
+        public int RecipeStepCount()
+        {
+            return GetRecipeStepCount();
+        }
+
+        public int CurrentRecipeStepIndex()
+        {
+            return GetRecipeCurrentStepIndex();
+        }
+
+        public string RecipeStepDescription(int index)
+        {
+            var buffer = new StringBuilder(256);
+
+            int result = GetRecipeStepDescription(
+                index,
+                buffer,
+                buffer.Capacity);
+
+            return result == 0
+                ? buffer.ToString()
+                : string.Empty;
+        }
     }
 }

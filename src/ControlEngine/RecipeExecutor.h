@@ -1,5 +1,8 @@
 #pragma once
 
+#include <string>
+#include <vector>
+
 #include "Recipe.h"
 #include "RecipeExecutionStatus.h"
 #include "IMachineController.h"
@@ -8,8 +11,9 @@ class RecipeExecutor
 {
 private:
     IMachineController* machineController;
-    
+
     RecipeExecutionStatus status;
+
     std::string currentRecipeName;
     std::string currentStepDescription;
 
@@ -17,6 +21,7 @@ private:
 
     int currentStepIndex;
     int totalSteps;
+
     double currentStepElapsed;
     bool currentStepStarted;
 
@@ -26,17 +31,24 @@ public:
     bool StartRecipe(const Recipe& recipe);
     void Update(double deltaTime);
     void Reset();
+
     bool IsRunning() const;
 
+    // Backward-compatible synchronous execution for tests.
     bool ExecuteRecipe(const Recipe& recipe);
 
     RecipeExecutionStatus GetStatus() const;
+
     const std::string& GetCurrentRecipeName() const;
     const std::string& GetCurrentStepDescription() const;
 
     int GetCurrentStepIndex() const;
     int GetTotalSteps() const;
     double GetProgressPercent() const;
+
+    // Recipe timeline accessors.
+    int GetStepCount() const;
+    std::string GetStepDescription(int index) const;
     const std::vector<RecipeStep>& GetSteps() const;
 
 private:

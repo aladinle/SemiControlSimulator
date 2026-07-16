@@ -92,4 +92,9 @@ public:
     bool StartRecipe(const Recipe& recipe);
     void UpdateRecipe(double deltaTime);
     bool IsRecipeRunning() const;
+
+    // Recipe Timeline
+    int GetRecipeStepCount() const;
+    int GetRecipeCurrentStepIndex() const;
+    std::string GetRecipeStepDescription(int index) const;
 };

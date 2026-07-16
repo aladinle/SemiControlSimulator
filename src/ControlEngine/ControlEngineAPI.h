@@ -51,5 +51,9 @@ extern "C"
     CONTROLENGINE_API int GetRecipeStatus();
     CONTROLENGINE_API int GetRecipeName(char* buffer, int bufferSize);
     CONTROLENGINE_API int GetRecipeCurrentStep(char* buffer, int bufferSize);
+
+    CONTROLENGINE_API int GetRecipeStepCount();
+    CONTROLENGINE_API int GetRecipeCurrentStepIndex();
+    CONTROLENGINE_API int GetRecipeStepDescription(int index, char* buffer, int bufferSize);
 }
 

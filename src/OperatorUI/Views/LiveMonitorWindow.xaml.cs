@@ -103,7 +103,7 @@ namespace OperatorUI.Views
 
             // Recipe
             RecipeNameText.Text = engine.RecipeName();
-            RecipeStepText.Text = engine.CurrentRecipeStep();
+            //RecipeStepText.Text = engine.CurrentRecipeStep();
             double progress = engine.RecipeProgress();
             RecipeProgressBar.Value = progress;
             RecipeProgressText.Text = $"{progress:F0}%";
@@ -115,19 +115,42 @@ namespace OperatorUI.Views
         {
             RecipeNameText.Text = engine.RecipeName();
 
-            RecipeStepText.Text = engine.CurrentRecipeStep();
-
             double progress = engine.RecipeProgress();
 
             RecipeProgressBar.Value = progress;
-
             RecipeProgressText.Text = $"{progress:F0}%";
 
             int status = engine.RecipeStatus();
 
             RecipeStatusText.Text = GetRecipeStatusString(status);
-
             RecipeStatusText.Foreground = GetRecipeStatusBrush(status);
+
+            //----------------------------------------------------
+            // Recipe Timeline
+            //----------------------------------------------------
+
+            RecipeTimelineList.Items.Clear();
+
+            int stepCount = engine.RecipeStepCount();
+            int currentStep = engine.CurrentRecipeStepIndex();
+
+            for (int i = 0; i < stepCount; i++)
+            {
+                string description = engine.RecipeStepDescription(i);
+
+                if (i < currentStep)
+                {
+                    RecipeTimelineList.Items.Add($"✓ {description}");
+                }
+                else if (i == currentStep)
+                {
+                    RecipeTimelineList.Items.Add($"▶ {description}");
+                }
+                else
+                {
+                    RecipeTimelineList.Items.Add($"○ {description}");
+                }
+            }
         }
 
         private Brush GetRecipeStatusBrush(int status)

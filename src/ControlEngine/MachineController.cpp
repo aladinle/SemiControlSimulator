@@ -829,3 +829,18 @@ bool MachineController::IsRecipeRunning() const
 {
     return recipeExecutor.IsRunning();
 }
+
+int MachineController::GetRecipeStepCount() const
+{
+    return recipeExecutor.GetStepCount();
+}
+
+int MachineController::GetRecipeCurrentStepIndex() const
+{
+    return recipeExecutor.GetCurrentStepIndex();
+}
+
+std::string MachineController::GetRecipeStepDescription(int index) const
+{
+    return recipeExecutor.GetStepDescription(index);
+}
